@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Button } from "./Button";
+import { Button } from "@/components/ui/button";
 
 const Logo = () => {
   //update the size of the logo when the size of the screen changes
@@ -35,13 +35,13 @@ const Logo = () => {
 
   return (
     <>
-      <Link href="/" style={{ display: showButton ? "none" : "block" }}>
+      <Link href="/" style={{ display: showButton ? "block" : "block" }}>
         <Image
-          src="/images/logo.png"
+          src={'/images/temporary_logo.png'}
           alt="Logo"
-          width={width < 1024 ? "150" : "250"}
-          height={width < 1024 ? "45" : "74"}
-          className="relative"
+          width={width < 1024 ? "70" : "70"}
+          height={width < 1024 ? "70" : "70"}
+          className="-my-5"
         />
       </Link>
       <div
@@ -49,7 +49,7 @@ const Logo = () => {
           display: showButton ? "block" : "none",
         }}
       >
-        <Button />
+        <Button>{'Sign In'}</Button>
       </div>
     </>
   );

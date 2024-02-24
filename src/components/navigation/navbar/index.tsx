@@ -1,18 +1,25 @@
 import React from "react";
 import Link from "next/link";
 import Logo from "./Logo";
-import { Button } from "./Button";
+import { Button } from "@/components/ui/button";
+import { NavList } from "./NavList";
 
-export const Navbar = ({ toggle }: { toggle: () => void }) => {
+export const Navbar = ({
+  isOpen,
+  toggle,
+}: {
+  isOpen: boolean;
+  toggle: () => void;
+}): JSX.Element => {
   return (
     <>
-      <div className="w-full h-20 bg-emerald-800 sticky top-0">
+      <div className="w-full h-20 sticky top-0 z-10">
         <div className="container mx-auto px-4 h-full">
           <div className="flex justify-between items-center h-full">
             <Logo />
             <button
               type="button"
-              className="inline-flex items-center md:hidden"
+              className={`inline-flex items-center md:hidden ${isOpen ? 'hidden' : 'block'}`}
               onClick={toggle}
             >
               <svg
@@ -28,24 +35,12 @@ export const Navbar = ({ toggle }: { toggle: () => void }) => {
               </svg>
             </button>
             <ul className="hidden md:flex gap-x-6 text-white ">
-              <li>
-                <Link href="/about">
-                  <p>About Us</p>
-                </Link>
-              </li>
-              <li>
-                <Link href="/services">
-                  <p>Services</p>
-                </Link>
-              </li>
-              <li>
-                <Link href="/contacts">
-                  <p>Contacts</p>
-                </Link>
-              </li>
+              <NavList />
             </ul>
             <div className="hidden md:block">
-              <Button />
+              <Button onClick={() => {
+                console.log("clicked");
+              }}>{'Sign In'}</Button>
             </div>
           </div>
         </div>

@@ -1,4 +1,7 @@
 import Link from "next/link";
+import Logo from "../navbar/Logo";
+import { Button } from "@/components/ui/button";
+import { NavList } from "../navbar/NavList";
 
 export const Sidebar = ({
   isOpen,
@@ -10,14 +13,18 @@ export const Sidebar = ({
   return (
     <>
       <div
-        className="sidebar-container fixed w-full h-full overflow-hidden justify-center bg-black grid pt-[120px] left-0 z-10"
+        className="fixed w-full h-full justify-center bg-black left-0 z-10 flex"
         style={{
           opacity: `${isOpen ? "1" : "0"}`,
           top: ` ${isOpen ? "0" : "-100%"}`,
+          zIndex: `${isOpen ? 20 : 0}`,
         }}
       >
-        <button className="absolute right-0 p-5" onClick={toggle}>
-          {/* Close icon */}
+        <div className="absolute -left-1 p-5 my-4 h-full w-full">
+          <Logo />
+        </div>
+        {/* Close icon */}
+        <button className="absolute right-0 p-5 " onClick={toggle}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="48"
@@ -30,23 +37,9 @@ export const Sidebar = ({
             />
           </svg>
         </button>
-
-        <ul className="sidebar-nav text-center leading-relaxed text-xl">
-          <li>
-            <Link href="/about" onClick={toggle}>
-              <p>About Us</p>
-            </Link>
-          </li>
-          <li>
-            <Link href="/services" onClick={toggle}>
-              <p>Services</p>
-            </Link>
-          </li>
-          <li>
-            <Link href="/contacts" onClick={toggle}>
-              <p>Contacts</p>
-            </Link>
-          </li>
+        <ul className="flex flex-col justify-evenly text-center leading-relaxed text-xl z-10">
+          <NavList />
+          <Button>Sign In</Button>
         </ul>
       </div>
     </>
