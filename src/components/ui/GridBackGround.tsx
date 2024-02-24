@@ -1,6 +1,9 @@
 import React from "react";
 import { HeroText } from "./HeroText";
 import { CardStack } from "./CardStack";
+import singapore from '../../../public/images/hero_section/singapore.jpg'
+import paris from '../../../public/images/hero_section/paris.jpg'
+import dubai from '../../../public/images/hero_section/dubai.jpg'
 
 export const GridBackgroundDemo = () => {
   return (
@@ -17,35 +20,20 @@ export const GridBackgroundDemo = () => {
 const CARDS = [
   {
     id: 0,
-    name: "Manu Arora",
-    designation: "Senior Software Engineer",
-    content: (
-      <p>
-        These cards are amazing. Framer motion is a godsend ngl tbh fam 🙏
-      </p>
-    ),
+    name: "Marina Bay Sands",
+    designation: "Singapore",
+    content: singapore,
   },
   {
     id: 1,
-    name: "Elon Musk",
-    designation: "Senior Shitposter",
-    content: (
-      <p>
-        I dont like this Twitter thing, so that it can easily
-        be confused with adult sites.
-      </p>
-    ),
+    name: "Eiffel Tower",
+    designation: "Paris",
+    content: paris,
   },
   {
     id: 2,
-    name: "Tyler Durden",
-    designation: "Manager Project Mayhem",
-    content: (
-      <p>
-        The first rule of is that you do not talk about fight
-        club. The second rule of is that you DO NOT TALK about fight
-        club.
-      </p>
-    ),
+    name: "Burj Khalifa",
+    designation: "Dubai",
+    content: dubai,
   },
 ];
