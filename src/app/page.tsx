@@ -1,5 +1,5 @@
-import { TypeWriter } from "@/components/TypeWriter";
-import { GridBackgroundDemo } from "@/components/ui/GridBackGround";
+import { TypeWriter } from "@/components/customcomponents/TypeWriter";
+import { GridBackgroundDemo } from "@/components/customcomponents/GridBackGround";
 
 
 export default function Home() {
