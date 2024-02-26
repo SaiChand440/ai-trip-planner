@@ -1,8 +1,6 @@
 "use client"
 import React from 'react'
 import { TypeWriter } from './TypeWriter';
-import { Button } from '../ui/button';
-import { redirect } from "next/navigation";
 import { StartPlanningButton } from './StartPlanningButton';
 
 export const HeroText = () => {
