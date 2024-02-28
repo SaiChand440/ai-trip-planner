@@ -8,7 +8,7 @@ export const StartPlanningButton = () => {
   return (
     <Button
       variant={"default"}
-      className="z-10 w-1/2 my-10"
+      className="z-10 w-full md:w-1/2 my-10"
       onClick={() => {
         route.push("/new-trip");
       }}

@@ -8,6 +8,7 @@ import { Button } from "../ui/button";
 import { addDays } from "date-fns";
 import { PlacesInputField } from "@/app/new-trip/components/PlacesInputField";
 import { SelectDatesComponent } from "@/app/new-trip/components/SelectDatesComponent";
+import { UserTypeRadioGroup } from "@/app/new-trip/components/UserTypeRadioGroup";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -19,9 +20,14 @@ const formSchema = z.object({
       to: z.date(),
     })
     .refine(
-      (data) => data.from > addDays(new Date(), -1) && data.to <= addDays(data.from,10),
+      (data) =>
+        data.from > addDays(new Date(), -1) &&
+        data.to <= addDays(data.from, 10),
       "Start date must be in the future"
     ),
+  usertype: z.enum(["solo", "couple", "friends", "family"], {
+    required_error: "You need to select a notification type.",
+  }),
 });
 
 export const TripPlanForm = () => {
@@ -57,6 +63,11 @@ export const TripPlanForm = () => {
           <PlacesInputField form={form} />
           <SelectDatesComponent form={form} />
         </div>
+        <h3 className="self-start text-xl lg:px-72">Is it going to be a?</h3>
+        <UserTypeRadioGroup
+          form={form}
+          className="flex justify-center lg:px-64"
+        />
         <Button type="submit">Submit</Button>
       </form>
     </Form>

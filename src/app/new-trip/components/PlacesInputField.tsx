@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
 import { CheckIcon } from "lucide-react";
-import React, { HTMLAttributes, useState } from "react";
+import React, { useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 import usePlacesAutoComplete from "use-places-autocomplete";
 
@@ -28,6 +28,7 @@ export interface IFormProps {
         from: Date;
         to: Date;
       };
+      usertype: "solo" | "couple" | "friends" | "family";
     },
     any,
     {
@@ -36,12 +37,13 @@ export interface IFormProps {
         from: Date;
         to: Date;
       };
+      usertype: "solo" | "couple" | "friends" | "family";
     }
-  >,
-  className?: string 
+  >;
+  className?: string;
 }
 
-export const PlacesInputField = ({ form , className}: IFormProps) => {
+export const PlacesInputField = ({ form, className }: IFormProps) => {
   const {
     ready,
     value,
@@ -67,9 +69,8 @@ export const PlacesInputField = ({ form , className}: IFormProps) => {
                 onValueChange={(e) => {
                   e.length > 2 ? setValue(e) : null;
                   e.length > 2 ? setOpen(true) : setOpen(false);
-                   form.setValue("username", e);
-                }
-              }
+                  form.setValue("username", e);
+                }}
                 onBlur={() => setOpen(false)}
                 value={form.getValues().username}
               />
@@ -78,9 +79,7 @@ export const PlacesInputField = ({ form , className}: IFormProps) => {
               >
                 No framework found.
               </CommandEmpty>
-              <CommandGroup
-                className={data.length >= 1 ? "block" : "hidden"}
-              >
+              <CommandGroup className={data.length >= 1 ? "block" : "hidden"}>
                 {data.map((framework) => (
                   <CommandItem
                     key={framework.description}
@@ -106,7 +105,6 @@ export const PlacesInputField = ({ form , className}: IFormProps) => {
               </CommandGroup>
             </Command>
           </FormControl>
-          <FormMessage />
         </FormItem>
       )}
     />
