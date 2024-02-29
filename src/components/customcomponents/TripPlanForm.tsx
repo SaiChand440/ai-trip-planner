@@ -9,6 +9,7 @@ import { addDays } from "date-fns";
 import { PlacesInputField } from "@/app/new-trip/components/PlacesInputField";
 import { SelectDatesComponent } from "@/app/new-trip/components/SelectDatesComponent";
 import { UserTypeRadioGroup } from "@/app/new-trip/components/UserTypeRadioGroup";
+import { BudgetComponent } from "@/app/new-trip/components/BudgetComponent";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -26,7 +27,10 @@ const formSchema = z.object({
       "Start date must be in the future"
     ),
   usertype: z.enum(["solo", "couple", "friends", "family"], {
-    required_error: "You need to select a notification type.",
+    required_error: "You need to select the type of traveller you are",
+  }),
+  budget: z.enum(["<500", "500-1000", "1000-2000", "2000-5000", "5000-10000", ">10000"], {
+      required_error: "You need to select the type of traveller you are",
   }),
 });
 
@@ -36,13 +40,12 @@ export const TripPlanForm = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
+      usertype: "solo"
     },
   });
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     console.log("values",values);
   }
 
@@ -54,21 +57,35 @@ export const TripPlanForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit, onError)}
-        className="flex flex-col container space-y-4 z-40 items-center"
+        className="flex flex-col w-full sm:container space-y-4 z-40 items-center"
       >
         <h3 className="self-start text-xl lg:px-72">
           Where do you plan to go?
         </h3>
-        <div className="flex justify-center w-full lg:px-64">
+        <div className="flex justify-center w-full lg:px-64 flex-col sm:flex-row">
           <PlacesInputField form={form} />
           <SelectDatesComponent form={form} />
         </div>
-        <h3 className="self-start text-xl lg:px-72">Is it going to be a?</h3>
+        <h3 className="self-start text-xl lg:px-72 pt-10">
+          Is it going to be a?
+        </h3>
         <UserTypeRadioGroup
           form={form}
-          className="flex justify-center lg:px-64"
+          className="flex justify-stretch px-0 lg:px-64"
         />
-        <Button type="submit">Submit</Button>
+        <h3 className="self-start text-xl lg:px-72 pt-10">
+          How much do you plan to spend on this trip?{" "}
+          <span className="text-slate-500"> (Optional) </span>
+        </h3>
+        <BudgetComponent
+          form={form}
+          className="flex justify-stretch px-0 lg:px-64 pb-10"
+        />
+        <div className="pb-2 w-full grid justify-stretch items-stretch lg:px-72">
+          <Button className="z-10 w-full lg:w-full mb-10" type="submit">
+            Submit
+          </Button>
+        </div>
       </form>
     </Form>
   );

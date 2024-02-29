@@ -29,6 +29,13 @@ export interface IFormProps {
         to: Date;
       };
       usertype: "solo" | "couple" | "friends" | "family";
+      budget:
+        | "<500"
+        | "500-1000"
+        | "1000-2000"
+        | "2000-5000"
+        | "5000-10000"
+        | ">10000";
     },
     any,
     {
@@ -38,12 +45,19 @@ export interface IFormProps {
         to: Date;
       };
       usertype: "solo" | "couple" | "friends" | "family";
+      budget:
+        | "<500"
+        | "500-1000"
+        | "1000-2000"
+        | "2000-5000"
+        | "5000-10000"
+        | ">10000";
     }
   >;
   className?: string;
 }
 
-export const PlacesInputField = ({ form, className }: IFormProps) => {
+export const PlacesInputField = ({ form }: IFormProps) => {
   const {
     ready,
     value,

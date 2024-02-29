@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import {
-  Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { IFormProps } from "./PlacesInputField";
@@ -17,7 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Calendar as CalendarIcon } from "lucide-react";
-import { addDays, format } from "date-fns";
+import { addDays, format, subDays } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 
 export const SelectDatesComponent = ({ form }: IFormProps) => {
@@ -73,7 +70,7 @@ export const SelectDatesComponent = ({ form }: IFormProps) => {
                   }}
                   numberOfMonths={2}
                   disabled={(date) =>
-                    date < new Date() || date > addDays(field.value?.from, 10)
+                    date < new Date() || date > addDays(field.value?.from, 10) || date < subDays(field.value?.from, 10)
                   }
                   min={2}
                   showOutsideDays={false}

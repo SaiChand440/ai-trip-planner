@@ -39,7 +39,6 @@ export const Navbar = ({
             </ul>
             <div className="hidden md:block">
               <Button onClick={() => {
-                console.log("clicked");
               }}>{'Sign In'}</Button>
             </div>
           </div>

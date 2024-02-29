@@ -7,7 +7,6 @@ export const Navigation = () => {
   // toggle sidebar
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => {
-    console.log("isOpen",isOpen);
     setIsOpen(!isOpen);
   };
   return (
