@@ -3,6 +3,7 @@ import Link from "next/link";
 import Logo from "./Logo";
 import { Button } from "@/components/ui/button";
 import { NavList } from "./NavList";
+import { SignInDialog } from "@/components/customcomponents/SignInDialog";
 
 export const Navbar = ({
   isOpen,
@@ -19,7 +20,9 @@ export const Navbar = ({
             <Logo />
             <button
               type="button"
-              className={`inline-flex items-center md:hidden ${isOpen ? 'hidden' : 'block'}`}
+              className={`inline-flex items-center md:hidden ${
+                isOpen ? "hidden" : "block"
+              }`}
               onClick={toggle}
             >
               <svg
@@ -38,8 +41,7 @@ export const Navbar = ({
               <NavList />
             </ul>
             <div className="hidden md:block">
-              <Button onClick={() => {
-              }}>{'Sign In'}</Button>
+              <SignInDialog />
             </div>
           </div>
         </div>

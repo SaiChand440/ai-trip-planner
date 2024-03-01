@@ -2,6 +2,7 @@ import Link from "next/link";
 import Logo from "../navbar/Logo";
 import { Button } from "@/components/ui/button";
 import { NavList } from "../navbar/NavList";
+import { SignInDialog } from "@/components/customcomponents/SignInDialog";
 
 export const Sidebar = ({
   isOpen,
@@ -39,7 +40,7 @@ export const Sidebar = ({
         </button>
         <ul className="flex flex-col justify-evenly text-center leading-relaxed text-xl z-10">
           <NavList />
-          <Button>Sign In</Button>
+          <SignInDialog />
         </ul>
       </div>
     </>
