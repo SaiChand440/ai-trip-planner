@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Logo from "./Logo";
 import { Button } from "@/components/ui/button";
 import { NavList } from "./NavList";
 import { SignInDialog } from "@/components/customcomponents/SignInDialog";
+import { createSupabaseClient } from "@/lib/supabase/browser";
+import { Session } from "@supabase/supabase-js";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
+
+const supabase = createSupabaseClient();
+  
 export const Navbar = ({
   isOpen,
   toggle,
@@ -12,6 +18,15 @@ export const Navbar = ({
   isOpen: boolean;
   toggle: () => void;
 }): JSX.Element => {
+
+  const [session, setSession] = useState<Session | null>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then((userData) => {
+      setSession(userData.data.session);
+    })
+  }, [])
+
   return (
     <>
       <div className="w-full h-20 sticky top-0 z-10">
@@ -40,9 +55,16 @@ export const Navbar = ({
             <ul className="hidden md:flex gap-x-6 text-white ">
               <NavList />
             </ul>
-            <div className="hidden md:block">
-              <SignInDialog />
-            </div>
+            {!session?.user.user_metadata ? (
+              <div className="hidden md:block">
+                <SignInDialog />
+              </div>
+            ) : (
+              <Avatar>
+                <AvatarImage referrerPolicy="no-referrer" src={session.user.user_metadata.picture} />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+            )}
           </div>
         </div>
       </div>
