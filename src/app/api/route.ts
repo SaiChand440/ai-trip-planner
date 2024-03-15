@@ -11,8 +11,6 @@ export const dynamic = 'force-dynamic' // defaults to auto
 
 export async function GET() {
   const allUsers = await db.select().from(profilesSchema);
-  console.log("allUsers",allUsers);
-
   
   return Response.json(allUsers, {
     status: 200,

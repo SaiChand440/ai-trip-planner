@@ -34,7 +34,7 @@ export async function POST(request: Request) {
     `Create valid json complying to the schema. ` +
     `Create an itinerary starting from ${from} and ending on ${to}, include activities for all days including the start and end date` +
     `This is a ${usertype} trip. ` +
-    `The budget should be in the range of ${budget}` +
+    `The total budget of the trip should be in the range of ${budget}, split this into each day expenses based on the itinerary` +
     `and json output schema` +
     JSON.stringify(output_schema, null, 2);
 
@@ -46,8 +46,6 @@ export async function POST(request: Request) {
   const response = await openai.chat({
     messages,
   });
-
-  console.log("response", response.message);
 
   const output = response.message.content
     ?.replace(/\\/g, "")

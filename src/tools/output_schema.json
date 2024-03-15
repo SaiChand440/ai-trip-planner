@@ -39,6 +39,10 @@
             "type": "string",
             "description": "date for each day of itinerary"
           },
+          "budget": {
+            "type": "number",
+            "description": "budget allocated for each day"
+          },
           "text": {
             "type": "string",
             "description": "description of itinerary"

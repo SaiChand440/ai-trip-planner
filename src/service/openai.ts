@@ -15,14 +15,11 @@ export async function chat({ messages }: IProps) {
     const result = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: messages,
-      response_format: { type: "json_object" }
+      response_format: { type: "json_object" },
+      top_p: 10e-9,
     });
-
-    console.log("result",result.choices[0].message);
-
     return result.choices[0];
   } catch (error) {
-    console.log(error);
     throw error;
   }
 }

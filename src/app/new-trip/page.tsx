@@ -1,6 +1,6 @@
 "use client"
 import { TripPlanForm } from '@/components/customcomponents/TripPlanForm';
-import { GoogleMap, useLoadScript } from '@react-google-maps/api'; 
+import { useLoadScript } from '@react-google-maps/api'; 
 
 export default function Page() {
 
