@@ -18,7 +18,7 @@ export const UserTypeRadioGroup = ({ form , className}: IFormProps) => {
   return (
     <FormField
       control={form.control}
-      name="username"
+      name="usertype"
       render={({ field }) => (
         <FormItem className={`w-[96%] pr-6 ${className}`}>
           <FormControl>

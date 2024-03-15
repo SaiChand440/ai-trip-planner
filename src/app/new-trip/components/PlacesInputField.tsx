@@ -23,7 +23,7 @@ import usePlacesAutoComplete from "use-places-autocomplete";
 export interface IFormProps {
   form: UseFormReturn<
     {
-      username: string;
+     destination: string;
       date: {
         from: Date;
         to: Date;
@@ -39,7 +39,7 @@ export interface IFormProps {
     },
     any,
     {
-      username: string;
+     destination: string;
       date: {
         from: Date;
         to: Date;
@@ -71,7 +71,7 @@ export const PlacesInputField = ({ form }: IFormProps) => {
   return (
     <FormField
       control={form.control}
-      name="username"
+      name="destination"
       render={({ field }) => (
         <FormItem className="w-3/4 pr-6">
           <FormControl className="border-slate-400 border-2">
@@ -83,10 +83,10 @@ export const PlacesInputField = ({ form }: IFormProps) => {
                 onValueChange={(e) => {
                   e.length > 2 ? setValue(e) : null;
                   e.length > 2 ? setOpen(true) : setOpen(false);
-                  form.setValue("username", e);
+                  form.setValue("destination", e);
                 }}
                 onBlur={() => setOpen(false)}
-                value={form.getValues().username}
+                value={form.getValues().destination}
               />
               <CommandEmpty
                 className={open && data.length >= 1 ? "block" : "hidden"}
@@ -99,7 +99,7 @@ export const PlacesInputField = ({ form }: IFormProps) => {
                     key={framework.description}
                     value={framework.description}
                     onSelect={(currentValue) => {
-                      form.setValue("username", currentValue);
+                      form.setValue("destination", currentValue);
                       setOpen(false);
                       clearSuggestions();
                     }}

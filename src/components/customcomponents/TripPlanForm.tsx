@@ -12,8 +12,8 @@ import { UserTypeRadioGroup } from "@/app/new-trip/components/UserTypeRadioGroup
 import { BudgetComponent } from "@/app/new-trip/components/BudgetComponent";
 
 const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+  destination: z.string().min(2, {
+    message: "destination must be at least 2 characters.",
   }),
   date: z
     .object({
@@ -39,7 +39,7 @@ export const TripPlanForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      destination: "",
       usertype: "solo"
     },
   });

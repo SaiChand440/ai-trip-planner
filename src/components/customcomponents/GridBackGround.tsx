@@ -4,11 +4,8 @@ import { CardStack } from "../ui/CardStack";
 import singapore from '../../../public/images/hero_section/singapore.jpg'
 import paris from '../../../public/images/hero_section/paris.jpg'
 import dubai from '../../../public/images/hero_section/dubai.jpg'
-import { createSupabaseClient } from "@/lib/supabase/browser";
 
 export const GridBackgroundDemo = async () => {
-  // const { data } = await createSupabaseClient().auth;
-  // console.log("data",data)
   return (
     <>
       <div className="h-[calc(100vh-5rem)] w-full dark:bg-black bg-white  dark:bg-dot-white/[0.4] bg-dot-black/[0.4] flex items-center justify-center">
