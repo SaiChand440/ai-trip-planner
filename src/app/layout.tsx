@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navigation } from "../components/navigation";
+import ReactQueryProvider from "@/service/ReactQueryProvider";
 
 export const fontSans = FontSans({
   subsets: ["latin"],
@@ -28,15 +29,17 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Navigation />
-          {children}
-        </ThemeProvider>
+        <ReactQueryProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Navigation />
+            {children}
+          </ThemeProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );

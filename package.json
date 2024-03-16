@@ -21,6 +21,7 @@
     "@react-google-maps/api": "^2.19.3",
     "@supabase/ssr": "^0.1.0",
     "@supabase/supabase-js": "^2.39.7",
+    "@tanstack/react-query": "^5.28.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "cmdk": "^0.2.1",
@@ -45,6 +46,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.27.7",
     "@types/lodash.debounce": "^4.0.9",
     "@types/node": "^20",
     "@types/react": "^18",
