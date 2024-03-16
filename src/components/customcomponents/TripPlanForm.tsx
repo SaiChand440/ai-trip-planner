@@ -10,8 +10,9 @@ import { PlacesInputField } from "@/app/new-trip/components/PlacesInputField";
 import { SelectDatesComponent } from "@/app/new-trip/components/SelectDatesComponent";
 import { UserTypeRadioGroup } from "@/app/new-trip/components/UserTypeRadioGroup";
 import { BudgetComponent } from "@/app/new-trip/components/BudgetComponent";
+import { usePathname, useRouter } from "next/navigation";
 
-const formSchema = z.object({
+export const formSchema = z.object({
   destination: z.string().min(2, {
     message: "destination must be at least 2 characters.",
   }),
@@ -34,6 +35,8 @@ const formSchema = z.object({
   }),
 });
 
+
+
 export const TripPlanForm = () => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -44,9 +47,16 @@ export const TripPlanForm = () => {
     },
   });
 
+  const route = useRouter();
+  const pathName = usePathname();
+
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("values",values);
+        history.pushState(
+          values,
+          '',
+        );
+    route.push("/itinerary")
   }
 
   function onError(a: any) {

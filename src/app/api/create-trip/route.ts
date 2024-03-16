@@ -18,6 +18,8 @@ interface IRequest {
     | ">10000";
 }
 
+export const runtime = "edge";
+
 export async function POST(request: Request) {
   const { destination, date:{from,to}, usertype, budget } : IRequest = await request.json();
 

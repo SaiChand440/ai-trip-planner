@@ -1,14 +1,36 @@
 "use client";
-import { TripPlanForm } from "@/components/customcomponents/TripPlanForm";
-import { useLoadScript } from "@react-google-maps/api";
+import { TripPlanForm, formSchema } from "@/components/customcomponents/TripPlanForm";
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import { z } from "zod";
+
+const myState = {
+  destination: history.state.destination,
+  date: {
+    from: history.state?.date?.from,
+    to: history.state?.date?.to,
+  },
+  usertype: history.state.usertype,
+  budget: history.state.budget
+};
+
 
 export default function Page() {
   
-    // const {isLoading, } = useQuery({
-    //     ['itinerary'],
-    //     queryFn: getItinerary();
-    // })
+
+  const [values, setValues] = useState<z.infer<typeof formSchema>>(myState);
+  
+   const { data, isLoading } = useQuery({queryKey : ["itinerary"],queryFn : async () => {
+     return (
+       await fetch("http://localhost:3000/api/create-trip", {
+         method: "POST",
+         body: JSON.stringify(values),
+       })
+     ).json();
+   }});
+
+
+
 
 //   if (!isLoaded) {
 //     return (
@@ -39,3 +61,11 @@ export default function Page() {
     </>
   );
 }
+
+const getItinerary = async (values: z.infer<typeof formSchema>) => {
+  return await fetch('http://localhost:3000/api/create-trip',{
+    method: 'POST',
+    body: JSON.stringify(values),
+  })
+}
+
