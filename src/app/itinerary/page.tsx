@@ -1,26 +1,36 @@
-"use client";
+"use client"
 import { GlobeLoader } from "@/components/customcomponents/GlobeLoader";
-import { TripPlanForm, formSchema } from "@/components/customcomponents/TripPlanForm";
+import { formSchema } from "@/components/customcomponents/TripPlanForm";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
 import { z } from "zod";
+import Itinerary from "./components/Itinerary";
+import { useValuesStore } from "@/store/valuesStore";
 
 const myState = {
-  destination: history.state.destination,
+  destination: history?.state?.destination,
   date: {
-    from: history.state?.date?.from,
-    to: history.state?.date?.to,
+    from: history?.state?.date?.from,
+    to: history?.state?.date?.to,
   },
-  usertype: history.state.usertype,
-  budget: history.state.budget
+  usertype: history?.state?.usertype,
+  budget: history?.state?.budget
 };
 
 
 export default function Page() {
-  
+  // const { values } = useValuesStore();
+  // console.log("values",values);
 
-  const [values, setValues] = useState<z.infer<typeof formSchema>>(myState);
-  
+  const values : z.infer<typeof formSchema> = {
+    destination: 'dubai',
+    usertype: 'solo',
+    date: {
+      to: new Date(),
+      from: new Date(),
+    },
+    budget: '1000-2000'
+  }
+
    const { data, isLoading } = useQuery({queryKey : ["itinerary"],queryFn : async () => {
      return (
        await fetch("http://localhost:3000/api/create-trip", {
@@ -45,11 +55,7 @@ export default function Page() {
       <div className="h-[calc(100vh-5rem)] w-full dark:bg-black bg-white  dark:bg-dot-white/[0.4] bg-dot-black/[0.4] flex items-center justify-center">
         <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
         <div className="container flex justify-start items-center w-full h-[calc(100vh-5rem)]  mt-3 flex-col">
-          <h3 className="text-center text-6xl opacity-90 z-10 font-bold leading-snu pb-12">
-            Let{`'`}s plan your{" "}
-            <span className="text-indigo-300"> next trip </span>
-          </h3>
-          <TripPlanForm />
+          <Itinerary data={data} />
         </div>
       </div>
     </>

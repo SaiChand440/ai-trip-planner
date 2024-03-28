@@ -11,6 +11,7 @@ import { SelectDatesComponent } from "@/app/new-trip/components/SelectDatesCompo
 import { UserTypeRadioGroup } from "@/app/new-trip/components/UserTypeRadioGroup";
 import { BudgetComponent } from "@/app/new-trip/components/BudgetComponent";
 import { usePathname, useRouter } from "next/navigation";
+import { useValuesStore } from "@/store/valuesStore";
 
 export const formSchema = z.object({
   destination: z.string().min(2, {
@@ -48,14 +49,10 @@ export const TripPlanForm = () => {
   });
 
   const route = useRouter();
-  const pathName = usePathname();
-
+  const { setValues } = useValuesStore();
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-        history.pushState(
-          values,
-          '',
-        );
+    setValues(values);
     route.push("/itinerary")
   }
 
