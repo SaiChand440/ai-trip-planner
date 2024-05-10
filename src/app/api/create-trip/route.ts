@@ -2,6 +2,11 @@ import * as openai from "../../../service/openai";
 import output_schema from "../../../tools/output_schema.json";
 import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 import { createClient } from "pexels";
+import { connectionString } from "../route";
+import { itinerarySchema } from "@/app/dbmodels/itinerarySchema";
+import { createSupabaseServer } from "@/lib/supabase/server";
+import postgres from "postgres";
+import { drizzle } from "drizzle-orm/postgres-js";
 
 interface IRequest {
   destination: string;
@@ -19,175 +24,73 @@ interface IRequest {
     | ">10000";
 }
 
-export const runtime = "edge";
+
+export const dynamic = 'force-dynamic';
+
+const client = postgres(connectionString!, { prepare: false });
+const db = drizzle(client);
 
 export async function POST(request: Request) {
   const { destination, date:{from,to}, usertype, budget } : IRequest = await request.json();
 
-  // if (!destination || !from || !to || !usertype || !budget) {
-  //   return Response.json({success: false, error: "some of the fields are missing"},{
-  //       status: 400,
-  //       statusText: 'fail'
-  //   })
-  // }
+  if (!destination || !from || !to || !usertype || !budget) {
+    return Response.json({success: false, error: "some of the fields are missing"},{
+        status: 400,
+        statusText: 'fail'
+    })
+  }
 
-  // let system_prompt =
-  //   `You are a helpful travel planner specializing in ${destination} and designed to output json. ` +
-  //   `Your output is called as an API. ` +
-  //   `Create valid json complying to the schema. ` +
-  //   `Create an itinerary starting from ${from} and ending on ${to}, include activities for all days including the start and end date` +
-  //   `This is a ${usertype} trip. ` +
-  //   `The total budget of the trip should be in the range of ${budget}, split this into each day expenses based on the itinerary` +
-  //   `and json output schema` +
-  //   JSON.stringify(output_schema, null, 2);
+  let system_prompt =
+    `You are a helpful travel planner specializing in ${destination} and designed to output json. ` +
+    `Your output is called as an API. ` +
+    `Create valid json complying to the schema. ` +
+    `Create an itinerary starting from ${from} and ending on ${to}, include activities for all days including the start and end date` +
+    `This is a ${usertype} trip. ` +
+    `The total budget of the trip should be in the range of ${budget}, split this into each day expenses based on the itinerary` +
+    `and json output schema` +
+    JSON.stringify(output_schema, null, 2);
 
-  // let messages: ChatCompletionMessageParam[] = [
-  //   { role: "system", content: system_prompt },
-  //   { role: "user", content: `Create an itinerary to ${destination}` },
-  // ];
+  let messages: ChatCompletionMessageParam[] = [
+    { role: "system", content: system_prompt },
+    { role: "user", content: `Create an itinerary to ${destination}` },
+  ];
 
-  // const response = await openai.chat({
-  //   messages,
-  // });
+  const response = await openai.chat({
+    messages,
+  });
 
-  // const output = JSON.parse(response.message.content
-  //   ?.replace(/\\/g, "")
-  //   .replace(/\n/g, "")!);
+  const output = JSON.parse(response.message.content
+    ?.replace(/\\/g, "")
+    .replace(/\n/g, "")!);
 
-  const output = {
-    title: "Romantic Getaway in Dubai",
-    welcome: {
-      title: "Welcome to Dubai!",
-      text: "Experience the perfect romantic getaway in the vibrant city of Dubai. Explore the stunning attractions, indulge in luxurious experiences, and create unforgettable memories with your loved one.",
-      image:
-        "https://images.pexels.com/photos/2044434/pexels-photo-2044434.jpeg",
-    },
-    itineraries: [
-      {
-        title: "Arrival in Dubai",
-        date: "01-03-2024",
-        budget: 80,
-        text: "Arrive in Dubai and check into your luxurious hotel. Spend the day relaxing and enjoying the hotel amenities.",
-        image:
-          "https://images.pexels.com/photos/2044434/pexels-photo-2044434.jpeg",
-        places: ["Hotel check-in"],
-      },
-      {
-        title: "Exploring Dubai",
-        date: "02-03-2024",
-        budget: 100,
-        text: "Visit the iconic Burj Khalifa and enjoy breathtaking views of the city from the observation deck. Explore the Dubai Mall for shopping and dining.",
-        image:
-          "https://images.pexels.com/photos/2044434/pexels-photo-2044434.jpeg",
-        places: ["Burj Khalifa", "Dubai Mall"],
-      },
-      {
-        title: "Desert Safari Adventure",
-        date: "03-03-2024",
-        budget: 120,
-        text: "Embark on a thrilling desert safari adventure. Enjoy dune bashing, camel riding, and a traditional Arabian dinner under the stars.",
-        image:
-          "https://images.pexels.com/photos/2044434/pexels-photo-2044434.jpeg",
-        places: ["Desert Safari"],
-      },
-      {
-        title: "Relaxing Day by the Beach",
-        date: "04-03-2024",
-        budget: 90,
-        text: "Spend a relaxing day by the beach. Enjoy the sun, sand, and sea at one of Dubai's pristine beaches.",
-        image:
-          "https://images.pexels.com/photos/2044434/pexels-photo-2044434.jpeg",
-        places: ["Beach Day"],
-      },
-      {
-        title: "Cultural Exploration",
-        date: "05-03-2024",
-        budget: 110,
-        text: "Immerse yourself in Dubai's rich culture and heritage. Visit the Dubai Museum, explore the historic Al Fahidi Fort, and wander through the vibrant souks.",
-        image:
-          "https://images.pexels.com/photos/2044434/pexels-photo-2044434.jpeg",
-        places: ["Dubai Museum", "Al Fahidi Fort", "Dubai Souks"],
-      },
-      {
-        title: "Luxury Dining Experience",
-        date: "06-03-2024",
-        budget: 100,
-        text: "Indulge in a romantic dinner at a luxurious restaurant overlooking the Dubai skyline. Enjoy a culinary experience like no other.",
-        image:
-          "https://images.pexels.com/photos/2044434/pexels-photo-2044434.jpeg",
-        places: ["Luxury Dinner"],
-      },
-      {
-        title: "Adventure at Atlantis The Palm",
-        date: "07-03-2024",
-        budget: 120,
-        text: "Explore the iconic Atlantis The Palm resort. Visit the Aquaventure Waterpark for thrilling water rides and encounters with marine life.",
-        image:
-          "https://images.pexels.com/photos/2044434/pexels-photo-2044434.jpeg",
-        places: ["Atlantis The Palm", "Aquaventure Waterpark"],
-      },
-      {
-        title: "Shopping Extravaganza",
-        date: "08-03-2024",
-        budget: 100,
-        text: "Shop till you drop at the Dubai Mall, home to a wide range of international brands and designer stores. Don't miss the Dubai Fountain show in the evening.",
-        image:
-          "https://images.pexels.com/photos/2044434/pexels-photo-2044434.jpeg",
-        places: ["Dubai Mall", "Dubai Fountain"],
-      },
-      {
-        title: "Dhow Cruise Dinner",
-        date: "09-03-2024",
-        budget: 90,
-        text: "Embark on a romantic dhow cruise along Dubai Marina. Enjoy a sumptuous dinner onboard while taking in the stunning views of the city's skyline.",
-        image:
-          "https://images.pexels.com/photos/2044434/pexels-photo-2044434.jpeg",
-        places: ["Dhow Cruise Dinner"],
-      },
-      {
-        title: "Departure from Dubai",
-        date: "10-03-2024",
-        budget: 100,
-        text: "Check out from your hotel and bid farewell to Dubai. Take home beautiful memories of your romantic getaway in this enchanting city.",
-        image:
-          "https://images.pexels.com/photos/2044434/pexels-photo-2044434.jpeg",
-        places: ["Hotel check-out"],
-      },
-    ],
-    closing: {
-      title: "Farewell to Dubai",
-      text: "We hope you enjoyed your romantic getaway in Dubai and created unforgettable memories with your loved one. Until next time!",
-      image:
-        "https://images.pexels.com/photos/2044434/pexels-photo-2044434.jpeg",
-      places: [
-        "Burj Khalifa",
-        "Desert Safari",
-        "Atlantis The Palm",
-        "Dubai Marina",
-      ],
-    },
-  };
+  const client = createClient(process.env.PEXELS_API_KEY!);
 
-  // const client = createClient(process.env.PEXELS_API_KEY!);
-
-  // const welcomePhoto = await client.photos.search({
-  //   query: destination,
-  //   per_page: 1,
-  //   orientation: "landscape",
-  // });
+  const welcomePhoto = await client.photos.search({
+    query: destination,
+    per_page: 1,
+    orientation: "landscape",
+  });
   
   // console.log("urll",welcomePhoto.photos[0]);
-  // output.welcome.image = welcomePhoto.photos[0].src.original;
+  output.welcome.image = welcomePhoto.photos[0].src.original;
 
-  // await Promise.all(output?.itineraries.map(
-  //   async (itinerary: any, index: number) => {
-  //     const itineraryPhoto = await client.photos.search({
-  //       query: destination,
-  //       per_page: 1,
-  //     });
-  //     output.itineraries[index].image = itineraryPhoto.photos[0].src.original;
-  //   }
-  // ));
+  await Promise.all(output?.itineraries.map(
+    async (itinerary: any, index: number) => {
+      const itineraryPhoto = await client.photos.search({
+        query: destination,
+        per_page: 1,
+      });
+      output.itineraries[index].image = itineraryPhoto.photos[0].src.original;
+    }
+  ));
+
+  const supabase = createSupabaseServer();
+  const userId = (await supabase.auth.getUser()).data.user?.id
+  await db.insert(itinerarySchema).values({
+    id: '3d1017e9-afcc-4774-8fa5-4cc6f90de98b',
+    created_at: new Date(),
+    trip_data: JSON.stringify(output),
+  });
 
   return new Response(
     JSON.stringify({
