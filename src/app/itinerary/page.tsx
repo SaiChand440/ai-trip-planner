@@ -22,7 +22,7 @@ export default function Page() {
 
    const { data, isLoading } = useQuery({queryKey : ["itinerary"],queryFn : async () => {
      return (
-       await fetch("http://localhost:3000/api/create-trip", {
+       await fetch("https://ai-trip-planner-one.vercel.app/api/create-trip", {
          method: "POST",
          body: JSON.stringify(values),
        })
