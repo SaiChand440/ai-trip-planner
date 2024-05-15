@@ -2,7 +2,6 @@ import * as openai from "../../../service/openai";
 import output_schema from "../../../tools/output_schema.json";
 import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 import { createClient } from "pexels";
-import { connectionString } from "../route";
 import { itinerarySchema } from "@/app/dbmodels/itinerarySchema";
 import { createSupabaseServer } from "@/lib/supabase/server";
 import postgres from "postgres";
@@ -24,6 +23,7 @@ interface IRequest {
     | ">10000";
 }
 
+const connectionString = process.env.DATABASE_URL;
 
 export const dynamic = 'force-dynamic';
 
