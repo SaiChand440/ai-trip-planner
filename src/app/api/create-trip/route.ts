@@ -27,6 +27,10 @@ const connectionString = process.env.DATABASE_URL;
 
 export const dynamic = 'force-dynamic';
 
+export const config = {
+  maxDuration: 60,
+};
+
 const client = postgres(connectionString!, { prepare: false });
 const db = drizzle(client);
 
