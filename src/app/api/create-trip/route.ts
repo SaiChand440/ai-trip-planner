@@ -71,8 +71,7 @@ export async function POST(request: Request) {
     orientation: "landscape",
   });
   
-  // console.log("urll",welcomePhoto.photos[0]);
-  output.welcome.image = welcomePhoto.photos[0].src.original;
+  output.welcome.image = (welcomePhoto as any).photos[0].src.original;
 
   await Promise.all(output?.itineraries.map(
     async (itinerary: any, index: number) => {
@@ -80,7 +79,7 @@ export async function POST(request: Request) {
         query: destination,
         per_page: 1,
       });
-      output.itineraries[index].image = itineraryPhoto.photos[0].src.original;
+      output.itineraries[index].image = (itineraryPhoto as any).photos[0].src.original;
     }
   ));
 

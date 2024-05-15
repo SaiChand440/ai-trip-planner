@@ -18,18 +18,7 @@ const myState = {
 
 
 export default function Page() {
-  // const { values } = useValuesStore();
-  // console.log("values",values);
-
-  const values : z.infer<typeof formSchema> = {
-    destination: 'dubai',
-    usertype: 'solo',
-    date: {
-      to: new Date(),
-      from: new Date(),
-    },
-    budget: '1000-2000'
-  }
+  const { values } = useValuesStore();
 
    const { data, isLoading } = useQuery({queryKey : ["itinerary"],queryFn : async () => {
      return (

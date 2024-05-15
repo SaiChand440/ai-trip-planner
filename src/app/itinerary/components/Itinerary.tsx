@@ -119,24 +119,14 @@ const output = {
 };
 
 export default function Itinerary({ data }: IProps) {
-  console.log("data", data?.data?.itineraries);
   return (
     <div className="h-max w-full">
-      {/* <div className="w-full h-full relative">
-        <Image
-          alt="welcome image"
-          src={data?.data?.welcome?.image}
-          layout="fill"
-          objectFit="stretch"
-          className="w-full h-full"
-        />
-      </div> */}
       <div className="h-screen z-50">
         <h1 className="font-bold text-neutral-200 text-4xl text-center z-50">
           {output.title}
         </h1>
         <div className="mt-20">
-          <HoverEffect items={output.itineraries}></HoverEffect>
+          <HoverEffect items={data?.data?.itineraries}></HoverEffect>
         </div>
       </div>
     </div>
