@@ -1,3 +1,4 @@
+import { HoverEffect } from "@/components/ui/HoverEffect";
 import Image from "next/image";
 import React from "react";
 
@@ -131,19 +132,12 @@ export default function Itinerary({ data }: IProps) {
         />
       </div> */}
       <div className="h-screen z-50">
-        {data?.data?.itineraries?.map((itineraryPerDay, index: number) => {
-          console.log("itineraryPerDay", itineraryPerDay);
-          return (
-            <div key={index}>
-              <div className="flex flex-row">
-                <h1 className="font-bold text-neutral-200 text-4xl text-center z-50">
-                  {itineraryPerDay.date}
-                </h1>
-                <div className="border-t mt-1 border-solid border-white w-3/4"></div>
-              </div>
-            </div>
-          );
-        })}
+        <h1 className="font-bold text-neutral-200 text-4xl text-center z-50">
+          {output.title}
+        </h1>
+        <div className="mt-20">
+          <HoverEffect items={output.itineraries}></HoverEffect>
+        </div>
       </div>
     </div>
   );
