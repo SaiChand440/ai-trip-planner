@@ -6,15 +6,15 @@ import { z } from "zod";
 import Itinerary from "./components/Itinerary";
 import { useValuesStore } from "@/store/valuesStore";
 
-const myState = {
-  destination: history?.state?.destination,
-  date: {
-    from: history?.state?.date?.from,
-    to: history?.state?.date?.to,
-  },
-  usertype: history?.state?.usertype,
-  budget: history?.state?.budget
-};
+// const myState = {
+//   destination: history?.state?.destination,
+//   date: {
+//     from: history?.state?.date?.from,
+//     to: history?.state?.date?.to,
+//   },
+//   usertype: history?.state?.usertype,
+//   budget: history?.state?.budget
+// };
 
 
 export default function Page() {
