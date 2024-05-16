@@ -20,12 +20,11 @@ import { useRouter } from "next/router";
 
 export default function Page() {
   const { values } = useValuesStore();
-
   const { data, isLoading } = useQuery({
     queryKey: ["itinerary", values], queryFn: async () => {
       return (
-        //  await fetch("https://ai-trip-planner-one.vercel.app/api/create-trip", {
-        await fetch("http://localhost:3000/api/create-trip", {
+        await fetch("https://ai-trip-planner-one.vercel.app/api/create-trip", {
+          // await fetch("http://localhost:3000/api/create-trip", {
           method: "POST",
           body: JSON.stringify(values),
         })
