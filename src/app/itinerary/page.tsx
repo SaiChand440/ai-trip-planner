@@ -1,10 +1,9 @@
 "use client"
 import { GlobeLoader } from "@/components/customcomponents/GlobeLoader";
-import { formSchema } from "@/components/customcomponents/TripPlanForm";
 import { useQuery } from "@tanstack/react-query";
-import { z } from "zod";
 import Itinerary from "./components/Itinerary";
 import { useValuesStore } from "@/store/valuesStore";
+
 // import { useRouter } from "next/router ";
 import { useRouter, useParams, useSearchParams } from "next/navigation";
 
@@ -34,7 +33,8 @@ export default function Page() {
           body: searchParams,
         })
       ).json();
-    }
+    },
+    refetchOnWindowFocus: false,
   });
 
   if (isLoading) {
