@@ -1,21 +1,8 @@
 "use client"
 import { GlobeLoader } from "@/components/customcomponents/GlobeLoader";
-import { formSchema } from "@/components/customcomponents/TripPlanForm";
 import { useQuery } from "@tanstack/react-query";
-import { z } from "zod";
 import Itinerary from "./components/Itinerary";
 import { useValuesStore } from "@/store/valuesStore";
-import { useRouter } from "next/router";
-
-// const myState = {
-//   destination: history?.state?.destination,
-//   date: {
-//     from: history?.state?.date?.from,
-//     to: history?.state?.date?.to,
-//   },
-//   usertype: history?.state?.usertype,
-//   budget: history?.state?.budget
-// };
 
 
 export default function Page() {
@@ -29,7 +16,8 @@ export default function Page() {
           body: JSON.stringify(values),
         })
       ).json();
-    }
+    },
+    refetchOnWindowFocus: false,
   });
 
   if (isLoading) {
