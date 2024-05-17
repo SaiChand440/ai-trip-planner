@@ -32,7 +32,7 @@ export const formSchema = z.object({
     required_error: "You need to select the type of traveller you are",
   }),
   budget: z.enum(["<500", "500-1000", "1000-2000", "2000-5000", "5000-10000", ">10000"], {
-      required_error: "You need to select the type of traveller you are",
+    required_error: "You need to select the type of traveller you are",
   }),
 });
 
@@ -49,11 +49,11 @@ export const TripPlanForm = () => {
   });
 
   const route = useRouter();
-  const { setValues } = useValuesStore();
-  // 2. Define a submit handler.
+  // const { setValues } = useValuesStore();
   function onSubmit(values: z.infer<typeof formSchema>) {
-    setValues(values);
-    route.push("/itinerary")
+    // setValues(values);
+    const serializedObject = encodeURIComponent(JSON.stringify(values));
+    route.push(`/itinerary?value=${serializedObject}`);
   }
 
   function onError(a: any) {
