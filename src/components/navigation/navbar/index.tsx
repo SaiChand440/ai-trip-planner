@@ -10,7 +10,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 
 const supabase = createSupabaseClient();
-  
+
 export const Navbar = ({
   isOpen,
   toggle,
@@ -28,16 +28,15 @@ export const Navbar = ({
   }, [])
 
   return (
-    <>
+    <div >
       <div className="w-full h-20 sticky top-0 z-10">
         <div className="container mx-auto px-4 h-full">
           <div className="flex justify-between items-center h-full">
             <Logo />
             <button
               type="button"
-              className={`inline-flex items-center md:hidden ${
-                isOpen ? "hidden" : "block"
-              }`}
+              className={`inline-flex items-center md:hidden ${isOpen ? "hidden" : "block"
+                }`}
               onClick={toggle}
             >
               <svg
@@ -68,7 +67,7 @@ export const Navbar = ({
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

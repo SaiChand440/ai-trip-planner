@@ -15,7 +15,7 @@ export const GridBackgroundDemo = async () => {
           <CardStack items={CARDS} />
         </div>
       </div>
-      <div className="h-screen"></div>
+      {/* <div className="h-screen"></div> */}
     </>
   );
 }

@@ -21,20 +21,21 @@ export const HoverEffect = ({
     let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
     return (
-        <div className={cn(className)}>
+        <div style={{ justifyContent: 'center', width: '80%', marginLeft: '10%' }}>
             {items?.map((item, idx) => (
                 // <Link
                 <div
                     // href={"item?.link"}
+                    // style={{ width: '50%' }}
                     key={"item?.link"}
-                    className="relative group  block p-2 h-full w-full "
+                    className="relative group  block p-2 h-full"
                     onMouseEnter={() => setHoveredIndex(idx)}
                     onMouseLeave={() => setHoveredIndex(null)}
                 >
                     <AnimatePresence>
                         {hoveredIndex === idx && (
                             <motion.span
-                                className="absolute inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block  rounded-3xl"
+                                className="absolute inset-0 h-full bg-neutral-200 dark:bg-slate-800/[0.8] block  rounded-3xl"
                                 layoutId="hoverBackground"
                                 initial={{ opacity: 0 }}
                                 animate={{
