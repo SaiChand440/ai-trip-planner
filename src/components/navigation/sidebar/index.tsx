@@ -18,7 +18,7 @@ export const Sidebar = ({
         style={{
           opacity: `${isOpen ? "1" : "0"}`,
           top: ` ${isOpen ? "0" : "-100%"}`,
-          zIndex: `${isOpen ? 20 : 0}`,
+          zIndex: `${isOpen ? 999 : 0}`,
         }}
       >
         <div className="absolute -left-1 p-5 my-4 h-full w-full">

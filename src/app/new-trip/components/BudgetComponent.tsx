@@ -39,7 +39,7 @@ export const BudgetComponent = ({ form, className }: IFormProps) => {
       control={form.control}
       name="budget"
       render={({ field }) => (
-        <FormItem className={`w-[96%] pr-6 ${className}`}>
+        <FormItem className={`md:w-[96%] w-full pr-6 ${className}`}>
           <Popover open={open} onOpenChange={setOpen}>
             <div className="relative w-full">
               <PopoverTrigger asChild className="w-full">

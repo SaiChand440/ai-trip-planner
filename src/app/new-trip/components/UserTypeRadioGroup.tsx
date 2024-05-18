@@ -20,7 +20,7 @@ export const UserTypeRadioGroup = ({ form , className}: IFormProps) => {
       control={form.control}
       name="usertype"
       render={({ field }) => (
-        <FormItem className={`w-[96%] pr-6 ${className}`}>
+        <FormItem className={`w-full md:w-[96%] pr-6 ${className}`}>
           <FormControl>
             <RadioGroup
               defaultValue="solo"
@@ -37,7 +37,7 @@ export const UserTypeRadioGroup = ({ form , className}: IFormProps) => {
                 />
                 <Label
                   htmlFor="solo"
-                  className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                  className="flex flex-row md:flex-col items-center justify-center md:justify-between gap-3 rounded-md border-2 border-muted bg-popover md:p-4 p-2 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -47,12 +47,12 @@ export const UserTypeRadioGroup = ({ form , className}: IFormProps) => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth="2"
-                    className="mb-3 h-6 w-6"
+                    className="h-6 w-6"
                   >
                     <rect width="20" height="14" x="2" y="5" rx="2" />
                     <path d="M2 10h20" />
                   </svg>
-                  Solo Trip
+                  <p className="text-sm text-center md:text-base">Solo Trip</p>
                 </Label>
               </div>
               <div>
@@ -63,10 +63,10 @@ export const UserTypeRadioGroup = ({ form , className}: IFormProps) => {
                 />
                 <Label
                   htmlFor="couple"
-                  className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                  className="flex flex-row md:flex-col items-center justify-center md:justify-between gap-3 rounded-md border-2 border-muted bg-popover md:p-4 p-2 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                 >
-                  <CheckIcon className="mb-3 h-6 w-6" />
-                  Couples Trip
+                  <CheckIcon className="h-6 w-6" />
+                  <p className="text-sm text-center md:text-base">Couples Trip</p>
                 </Label>
               </div>
               <div>
@@ -77,10 +77,10 @@ export const UserTypeRadioGroup = ({ form , className}: IFormProps) => {
                 />
                 <Label
                   htmlFor="friends"
-                  className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                  className="flex flex-row md:flex-col items-center justify-center md:justify-between gap-3 rounded-md border-2 border-muted bg-popover md:p-4 p-2 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                 >
-                  <CheckIcon className="mb-3 h-6 w-6" />
-                  Friends Trip
+                  <CheckIcon className="h-6 w-6" />
+                  <p className="text-sm text-center md:text-base">Friends Trip</p>
                 </Label>
               </div>
               <div>
@@ -91,10 +91,10 @@ export const UserTypeRadioGroup = ({ form , className}: IFormProps) => {
                 />
                 <Label
                   htmlFor="family"
-                  className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                  className="flex flex-row md:flex-col items-center justify-center md:justify-between gap-3 rounded-md border-2 border-muted bg-popover md:p-4 p-2 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                 >
-                  <CheckIcon className="mb-3 h-6 w-6" />
-                  Family Trip
+                  <CheckIcon className="h-6 w-6" />
+                  <p className="text-sm text-center md:text-base">Family Trip</p>
                 </Label>
               </div>
             </RadioGroup>
