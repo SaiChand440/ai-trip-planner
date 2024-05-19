@@ -78,7 +78,7 @@ export async function POST(request: Request) {
   await Promise.all(output?.itineraries.map(
     async (itinerary: any, index: number) => {
       const itineraryPhoto = await client.photos.search({
-        query: destination,
+        query: itinerary.places[0],
         per_page: 1,
       });
       output.itineraries[index].image = (itineraryPhoto as any).photos[0].src.original;
