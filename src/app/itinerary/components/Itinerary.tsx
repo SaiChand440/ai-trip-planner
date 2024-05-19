@@ -15,7 +15,7 @@ export default function Itinerary({ data }: IProps) {
         <h1 className="font-bold text-neutral-200 text-4xl text-center z-50">
           {data?.data?.title}
         </h1>
-        <div className="mt-20" style={{ width: '100%' }}>
+        <div className="mt-5 md:mt-15 lg:mt-20" style={{ width: '100%' }}>
           <HoverEffect items={data?.data?.itineraries}></HoverEffect>
         </div>
       </div>

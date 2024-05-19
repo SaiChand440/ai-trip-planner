@@ -73,7 +73,7 @@ export const PlacesInputField = ({ form }: IFormProps) => {
       control={form.control}
       name="destination"
       render={({ field }) => (
-        <FormItem className="w-3/4 pr-6">
+        <FormItem className="w-full md:w-3/4">
           <FormControl className="border-slate-400 border-2">
             <Command>
               <CommandInput
