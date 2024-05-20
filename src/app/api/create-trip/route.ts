@@ -5,6 +5,7 @@ import postgres from "postgres";
 import { drizzle } from "drizzle-orm/postgres-js";
 import { generateObject } from "ai";
 import { google } from "@ai-sdk/google";
+import { openai } from "@ai-sdk/openai";
 import outputSchema from "@/tools/outputSchema";
 
 interface IRequest {
@@ -53,7 +54,8 @@ export async function POST(request: Request) {
   let system_prompt = `You are a helpful travel planner specialized in ${destination}. Create an itinerary starting from ${from} and ending on ${to}, including activities for all days along with start and end date. This is a ${usertype} trip. The total budget of the trip is ${budget}, split the budget into daily expenses based on the itinerary.`;
 
   const response = await generateObject({
-    model: google("models/gemini-1.5-flash-latest"),
+    // model: google("models/gemini-1.5-flash-latest"),
+    model: openai('gpt-4o'),
     schema: outputSchema,
     system: system_prompt,
     prompt: `Create an itinerary to ${destination}`,
