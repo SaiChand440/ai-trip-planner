@@ -67,13 +67,13 @@ export async function POST(request: Request) {
 
   const client = createClient(process.env.PEXELS_API_KEY!);
 
-  // const welcomePhoto = await client.photos.search({
-  //   query: destination,
-  //   per_page: 1,
-  //   orientation: "landscape",
-  // });
+  const welcomePhoto = await client.photos.search({
+    query: destination,
+    per_page: 1,
+    orientation: "landscape",
+  });
   
-  // output.welcome.image = (welcomePhoto as any).photos[0].src.original;
+  output.welcome.image = (welcomePhoto as any).photos[0].src.original;
 
   await Promise.all(output?.itineraries.map(
     async (itinerary: any, index: number) => {
@@ -89,9 +89,9 @@ export async function POST(request: Request) {
   const supabase = createSupabaseServer();
   const userId = (await supabase.auth.getUser()).data.user?.id
   await db.insert(itinerarySchema).values({
-    user_id: userId,
+    user_id: "3d1017e9-afcc-4774-8fa5-4cc6f90de98b",
     created_at: new Date(),
-    trip_data: JSON.stringify(output),
+    trip_data: output,
   });
 
   return new Response(
