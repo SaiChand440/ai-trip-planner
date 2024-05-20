@@ -15,6 +15,14 @@
     "@ai-sdk/provider" "0.0.5"
     "@ai-sdk/provider-utils" "0.0.8"
 
+"@ai-sdk/openai@^0.0.13":
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/@ai-sdk/openai/-/openai-0.0.13.tgz#a16f16e0e0f669d757bfc4c4d9933f7b1ca8e325"
+  integrity sha512-V5Jjem+83sVxFNzhNUV25c7uXC33VKIhoo1qN098EMqTriEp9oNCRAaNXf95eVFbFs2bDLVZtkoACv++Go0BUA==
+  dependencies:
+    "@ai-sdk/provider" "0.0.5"
+    "@ai-sdk/provider-utils" "0.0.8"
+
 "@ai-sdk/provider-utils@0.0.8":
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/@ai-sdk/provider-utils/-/provider-utils-0.0.8.tgz#fcfff6263a0ac4e3868380af2a12262d836f28ee"
