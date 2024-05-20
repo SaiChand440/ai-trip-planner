@@ -1,11 +1,11 @@
-import * as openai from "../../../service/openai";
-import output_schema from "../../../tools/output_schema.json";
-import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 import { createClient } from "pexels";
 import { itinerarySchema } from "@/app/dbmodels/itinerarySchema";
 import { createSupabaseServer } from "@/lib/supabase/server";
 import postgres from "postgres";
 import { drizzle } from "drizzle-orm/postgres-js";
+import { generateObject } from "ai";
+import { google } from "@ai-sdk/google";
+import outputSchema from "@/tools/outputSchema";
 
 interface IRequest {
   destination: string;
@@ -25,7 +25,7 @@ interface IRequest {
 
 const connectionString = process.env.DATABASE_URL;
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export const maxDuration = 60;
 
@@ -33,37 +33,33 @@ const client = postgres(connectionString!, { prepare: false });
 const db = drizzle(client);
 
 export async function POST(request: Request) {
-  const { destination, date:{from,to}, usertype, budget } : IRequest = await request.json();
+  const {
+    destination,
+    date: { from, to },
+    usertype,
+    budget,
+  }: IRequest = await request.json();
 
   if (!destination || !from || !to || !usertype || !budget) {
-    return Response.json({success: false, error: "some of the fields are missing"},{
+    return Response.json(
+      { success: false, error: "some of the fields are missing" },
+      {
         status: 400,
-        statusText: 'fail'
-    })
+        statusText: "fail",
+      }
+    );
   }
 
-  let system_prompt =
-    `You are a helpful travel planner specializing in ${destination} and designed to output json. ` +
-    `Your output is called as an API. ` +
-    `Create valid json complying to the schema. ` +
-    `Create an itinerary starting from ${from} and ending on ${to}, include activities for all days including the start and end date` +
-    `This is a ${usertype} trip. ` +
-    `The total budget of the trip should be in the range of ${budget}, split this into each day expenses based on the itinerary` +
-    `and json output schema` +
-    JSON.stringify(output_schema, null, 2);
+  let system_prompt = `You are a helpful travel planner specialized in ${destination}. Create an itinerary starting from ${from} and ending on ${to}, including activities for all days along with start and end date. This is a ${usertype} trip. The total budget of the trip is ${budget}, split the budget into daily expenses based on the itinerary.`;
 
-  let messages: ChatCompletionMessageParam[] = [
-    { role: "system", content: system_prompt },
-    { role: "user", content: `Create an itinerary to ${destination}` },
-  ];
-
-  const response = await openai.chat({
-    messages,
+  const response = await generateObject({
+    model: google("models/gemini-1.5-flash-latest"),
+    schema: outputSchema,
+    system: system_prompt,
+    prompt: `Create an itinerary to ${destination}`,
   });
 
-  const output = JSON.parse(response.message.content
-    ?.replace(/\\/g, "")
-    .replace(/\n/g, "")!);
+  const output = response.object;
 
   const client = createClient(process.env.PEXELS_API_KEY!);
 
@@ -72,22 +68,24 @@ export async function POST(request: Request) {
     per_page: 1,
     orientation: "landscape",
   });
-  
+
   output.welcome.image = (welcomePhoto as any).photos[0].src.original;
 
-  await Promise.all(output?.itineraries.map(
-    async (itinerary: any, index: number) => {
+  await Promise.all(
+    output?.itineraries.map(async (itinerary: any, index: number) => {
       const itineraryPhoto = await client.photos.search({
         query: itinerary.places[0],
         per_page: 1,
         orientation: "landscape",
       });
-      output.itineraries[index].image = (itineraryPhoto as any).photos[0].src.original;
-    }
-  ));
+      output.itineraries[index].image = (
+        itineraryPhoto as any
+      ).photos[0].src.original;
+    })
+  );
 
   const supabase = createSupabaseServer();
-  const userId = (await supabase.auth.getUser()).data.user?.id
+  const userId = (await supabase.auth.getUser()).data.user?.id;
   await db.insert(itinerarySchema).values({
     user_id: "3d1017e9-afcc-4774-8fa5-4cc6f90de98b",
     created_at: new Date(),
@@ -97,7 +95,7 @@ export async function POST(request: Request) {
   return new Response(
     JSON.stringify({
       status: "ok",
-      data : output,
+      data: output,
     }),
     {
       status: 200,
