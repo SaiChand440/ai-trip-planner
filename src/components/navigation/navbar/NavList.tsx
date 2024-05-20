@@ -39,7 +39,7 @@ export const NavList = () => {
                   hover:underline-offset-8
                   "
       >
-        <Link href="/contacts">
+        <Link href="/my-trips">
           <p>My Trips</p>
         </Link>
       </li>

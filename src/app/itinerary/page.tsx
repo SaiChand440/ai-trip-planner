@@ -2,33 +2,16 @@
 import { GlobeLoader } from "@/components/customcomponents/GlobeLoader";
 import { useQuery } from "@tanstack/react-query";
 import Itinerary from "./components/Itinerary";
-import { useValuesStore } from "@/store/valuesStore";
-
-// import { useRouter } from "next/router ";
-import { useRouter, useParams, useSearchParams } from "next/navigation";
-
-// const myState = {
-//   destination: history?.state?.destination,
-//   date: {
-//     from: history?.state?.date?.from,
-//     to: history?.state?.date?.to,
-//   },
-//   usertype: history?.state?.usertype,
-//   budget: history?.state?.budget
-// };
+import { useRouter, useSearchParams } from "next/navigation";
 
 
 export default function Page() {
-  // const { values } = useValuesStore();
   const router = useRouter();
-  // const { value } = router.query;
-  // const objectPassed = value ? JSON.parse(decodeURIComponent(value)) : null;
   const searchParams = useSearchParams().get('value')
   const { data, isLoading } = useQuery({
     queryKey: ["itinerary", searchParams], queryFn: async () => {
       return (
-        await fetch("https://ai-trip-planner-one.vercel.app/api/create-trip", {
-          // await fetch("http://localhost:3000/api/create-trip", {
+          await fetch(`${window.location.origin}/api/create-trip`, {
           method: "POST",
           body: searchParams,
         })
