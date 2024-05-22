@@ -5,63 +5,67 @@ import Link from "next/link";
 import { useState } from "react";
 
 export const HoverEffect = ({
-    items,
-    className,
+  items,
+  className,
+  outputFromApi,
 }: {
-    items: {
-        title: string;
-        date: string;
-        budget: number;
-        text: string;
-        link: string;
-        image: string;
-    }[];
-    className?: string;
+  items: {
+    title: string;
+    date: string;
+    budget: number;
+    text: string;
+    link: string;
+    image: string;
+  }[];
+  className?: string;
+  outputFromApi?: boolean;
 }) => {
-    let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-    return (
-        <div className="w-full md:w-4/5 justify-center md:ml-[10%]" >
-            {items?.map((item, idx) => (
-                // <Link
-                <div
-                    // href={"item?.link"}
-                    // style={{ width: '50%' }}
-                    key={"item?.link"}
-                    className="relative group block p-2 h-full"
-                    onMouseEnter={() => setHoveredIndex(idx)}
-                    onMouseLeave={() => setHoveredIndex(null)}
-                >
-                    <AnimatePresence>
-                        {hoveredIndex === idx && (
-                            <motion.span
-                                className="absolute inset-0 h-full bg-neutral-200 dark:bg-slate-800/[0.8] block  rounded-3xl"
-                                layoutId="hoverBackground"
-                                initial={{ opacity: 0 }}
-                                animate={{
-                                    opacity: 1,
-                                    transition: { duration: 0.15 },
-                                }}
-                                exit={{
-                                    opacity: 0,
-                                    transition: { duration: 0.15, delay: 0.2 },
-                                }}
-                            />
-                        )}
-                    </AnimatePresence>
-                    <Card>
-                        <div className="flex flex-col md:flex-row items-center justify-center">
-                            <Image alt="image" src={item.image} height={250} width={250} />
-                            <div className="flex flex-col pl-6 pr-6 ">
-                                <CardTitle>{item.title}</CardTitle>
-                                <CardDescription>{item.text}</CardDescription>
-                            </div>
-                        </div>
-                    </Card>
-                </div>
-            ))}
+  return (
+    <div className="w-full md:w-4/5 justify-center md:ml-[10%]">
+      {items?.map((item, idx) => (
+        // <Link
+        <div
+          // href={"item?.link"}
+          // style={{ width: '50%' }}
+          key={idx}
+          className="relative group block p-2 h-full"
+          onMouseEnter={() => setHoveredIndex(idx)}
+          onMouseLeave={() => setHoveredIndex(null)}
+        >
+          <AnimatePresence>
+            {hoveredIndex === idx && (
+              <motion.span
+                className="absolute inset-0 h-full bg-neutral-200 dark:bg-slate-800/[0.8] block  rounded-3xl"
+                layoutId="hoverBackground"
+                initial={{ opacity: 0 }}
+                animate={{
+                  opacity: 1,
+                  transition: { duration: 0.15 },
+                }}
+                exit={{
+                  opacity: 0,
+                  transition: { duration: 0.15, delay: 0.2 },
+                }}
+              />
+            )}
+          </AnimatePresence>
+          <Card>
+            <div className="flex flex-col md:flex-row items-center justify-center">
+              {outputFromApi ? (
+                <Image alt="image" src={item.image} height={250} width={250} />
+              ) : null}
+              <div className="flex flex-col pl-6 pr-6 ">
+                <CardTitle>{item.title}</CardTitle>
+                <CardDescription>{item.text}</CardDescription>
+              </div>
+            </div>
+          </Card>
         </div>
-    );
+      ))}
+    </div>
+  );
 };
 
 export const Card = ({

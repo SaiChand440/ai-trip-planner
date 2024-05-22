@@ -34,35 +34,9 @@ const client = postgres(connectionString!, { prepare: false });
 const db = drizzle(client);
 
 export async function POST(request: Request) {
-  const {
-    destination,
-    date: { from, to },
-    usertype,
-    budget,
-  }: IRequest = await request.json();
+  const { searchParams, itineraryData } = await request.json();
 
-  if (!destination || !from || !to || !usertype || !budget) {
-    return Response.json(
-      { success: false, error: "some of the fields are missing" },
-      {
-        status: 400,
-        statusText: "fail",
-      }
-    );
-  }
-
-  let system_prompt = `You are a helpful travel planner specialized in ${destination}. Create an itinerary starting from ${from} and ending on ${to}, including activities for all days along with start and end date. This is a ${usertype} trip. The total budget of the trip is ${budget}, split the budget into daily expenses based on the itinerary.`;
-
-  const response = await generateObject({
-    // model: google("models/gemini-1.5-flash-latest"),
-    model: openai('gpt-4o'),
-    schema: outputSchema,
-    system: system_prompt,
-    prompt: `Create an itinerary to ${destination}`,
-  });
-
-  const output = response.object;
-
+  const { destination } = JSON.parse(searchParams);
   const client = createClient(process.env.PEXELS_API_KEY!);
 
   const welcomePhoto = await client.photos.search({
@@ -71,10 +45,14 @@ export async function POST(request: Request) {
     orientation: "landscape",
   });
 
+  const output = JSON.parse(itineraryData);
   output.welcome.image = (welcomePhoto as any).photos[0].src.original;
 
   await Promise.all(
     output?.itineraries.map(async (itinerary: any, index: number) => {
+      if (itinerary?.places?.length === 0) {
+        return;
+      }
       const itineraryPhoto = await client.photos.search({
         query: itinerary.places[0],
         per_page: 1,
@@ -98,6 +76,7 @@ export async function POST(request: Request) {
     JSON.stringify({
       status: "ok",
       data: output,
+      outputFromApi: true,
     }),
     {
       status: 200,
