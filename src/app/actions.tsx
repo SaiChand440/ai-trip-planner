@@ -5,8 +5,6 @@ import { createStreamableValue } from "ai/rsc";
 import outputSchema from "@/tools/outputSchema";
 import { google } from "@ai-sdk/google";
 
-export const dynamic = "force-dynamic";
-
 export async function generate(input: string) {
   "use server";
 

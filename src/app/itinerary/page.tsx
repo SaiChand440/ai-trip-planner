@@ -1,12 +1,12 @@
 "use client";
-"use strict";
-import { GlobeLoader } from "@/components/customcomponents/GlobeLoader";
 import { useQuery } from "@tanstack/react-query";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { generate } from "../actions";
-import { readStreamableValue, useStreamableValue } from "ai/rsc";
+import { readStreamableValue } from "ai/rsc";
 import { Itinerary } from "./components/Itinerary";
+
+export const dynamic = "force-dynamic";
 
 export default function Page() {
   const searchParams = useSearchParams().get('value');
