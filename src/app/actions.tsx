@@ -1,27 +1,11 @@
 "use server";
 
 import { streamObject } from "ai";
-import { openai } from "@ai-sdk/openai";
 import { createStreamableValue } from "ai/rsc";
-import { object, z } from "zod";
 import outputSchema from "@/tools/outputSchema";
 import { google } from "@ai-sdk/google";
 
-interface IRequest {
-  destination: string;
-  date: {
-    from: Date;
-    to: Date;
-  };
-  usertype: "solo" | "couple" | "friends" | "family";
-  budget:
-    | "<500"
-    | "500-1000"
-    | "1000-2000"
-    | "2000-5000"
-    | "5000-10000"
-    | ">10000";
-}
+export const dynamic = "force-dynamic";
 
 export async function generate(input: string) {
   "use server";
