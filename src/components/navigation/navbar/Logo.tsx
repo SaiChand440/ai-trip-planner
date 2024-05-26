@@ -45,13 +45,7 @@ const Logo = () => {
           className="-my-5"
         />
       </Link>
-      <div
-        style={{
-          display: showButton ? "block" : "none",
-        }}
-      >
-        <SignInDialog />
-      </div>
+
     </>
   );
 };

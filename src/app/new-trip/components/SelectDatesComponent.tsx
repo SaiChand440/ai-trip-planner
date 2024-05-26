@@ -56,7 +56,7 @@ export const SelectDatesComponent = ({ form }: IFormProps) => {
                   )}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="start">
+              <PopoverContent className="w-auto h-[300px] overflow-scroll md:h-auto p-0" align="start">
                 <Calendar
                   initialFocus
                   mode="range"
