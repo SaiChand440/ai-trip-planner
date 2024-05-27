@@ -3,13 +3,21 @@ import Logo from "../navbar/Logo";
 import { Button } from "@/components/ui/button";
 import { NavList } from "../navbar/NavList";
 import { SignInDialog } from "@/components/customcomponents/SignInDialog";
+import { Session } from "@supabase/supabase-js";
+import { createSupabaseClient } from "@/lib/supabase/browser";
+
+const supabase = createSupabaseClient();
 
 export const Sidebar = ({
   isOpen,
   toggle,
+  session,
+  setSession
 }: {
   isOpen: boolean;
   toggle: () => void;
+  session: Session | null;
+  setSession: (session:Session | null) => void;
 }): JSX.Element => {
   return (
     <>
@@ -40,7 +48,14 @@ export const Sidebar = ({
         </button>
         <ul className="flex flex-col justify-evenly text-center leading-relaxed text-xl z-10">
           <NavList />
-          <SignInDialog />
+          {!session?.user.user_metadata ? 
+          <SignInDialog isSideBar={true} toggle={toggle}/> : 
+          <Button variant="default" className="md:hidden block" onClick={()=>{
+            supabase.auth.signOut().then(()=>{
+              setSession(null);
+            });
+            toggle();
+            }}>Sign Out</Button>}
         </ul>
       </div>
     </>
