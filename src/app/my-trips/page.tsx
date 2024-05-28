@@ -17,10 +17,10 @@ export default function Page() {
   });
   return (
     <div className="w-full dark:bg-black bg-white  dark:bg-dot-white/[0.4] bg-dot-black/[0.4]" style={{ flexDirection: 'row', display: 'flex', flexWrap: 'wrap', gap: 50, justifyContent: 'center' }}>
-      {data?.data?.map((trip) =>
-        <ProductCard title={trip.trip_data.title
-        } description={trip.trip_data.welcome.text}
-          heroImage={trip.trip_data.welcome.image}
+      {/* @ts-ignore */}
+      {data?.data?.map((trip, index) =>
+        <ProductCard
+          key={index}
           data={trip} />
 
       )}

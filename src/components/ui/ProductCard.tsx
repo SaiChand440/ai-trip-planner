@@ -3,8 +3,7 @@ import React from "react";
 
 import Image from "next/image";
 import { BackgroundGradient } from "./BackgroundGardient";
-import Link from "next/link";
-
+//@ts-ignore
 export function ProductCard({ data }) {
     return (
         <BackgroundGradient className="rounded-[22px] max-w-sm p-4 sm:p-10 bg-white dark:bg-zinc-900">
