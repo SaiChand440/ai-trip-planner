@@ -3,7 +3,7 @@ import { ProductCard } from '@/components/ui/ProductCard';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react'
 
-export default function page() {
+export default function Page() {
   const { data } = useQuery({
     queryKey: ["mytrips"],
     queryFn: async () => {
