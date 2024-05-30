@@ -77,7 +77,7 @@ export const PlacesInputField = ({ form }: IFormProps) => {
           <FormControl className="border-slate-400 border-2">
             <Command>
               <CommandInput
-                placeholder="Search framework..."
+                placeholder="Search destination..."
                 className="h-9 "
                 onFocus={() => setOpen(true)}
                 onValueChange={(e) => {

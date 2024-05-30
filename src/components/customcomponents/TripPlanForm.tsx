@@ -11,7 +11,6 @@ import { SelectDatesComponent } from "@/app/new-trip/components/SelectDatesCompo
 import { UserTypeRadioGroup } from "@/app/new-trip/components/UserTypeRadioGroup";
 import { BudgetComponent } from "@/app/new-trip/components/BudgetComponent";
 import { usePathname, useRouter } from "next/navigation";
-import { useValuesStore } from "@/store/valuesStore";
 
 export const formSchema = z.object({
   destination: z.string().min(2, {

@@ -7,6 +7,7 @@ import { readStreamableValue } from "ai/rsc";
 import { Itinerary } from "./components/Itinerary";
 
 export const dynamic = "force-dynamic";
+export const maxDuration = 60;
 
 export default function Page() {
   const searchParams = useSearchParams().get('value');
