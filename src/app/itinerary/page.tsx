@@ -5,11 +5,13 @@ import { useEffect, useRef, useState } from "react";
 import { generate } from "../actions";
 import { readStreamableValue } from "ai/rsc";
 import { Itinerary } from "./components/Itinerary";
+import { unstable_noStore as noStore } from "next/cache";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
 export default function Page() {
+  noStore();
   const searchParams = useSearchParams().get('value');
   const [itineraryData, setItineraryData] = useState<string>("");
   const [streamStatus, setStreamStatus] = useState<string>("");
