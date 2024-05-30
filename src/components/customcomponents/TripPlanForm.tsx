@@ -81,7 +81,6 @@ export const TripPlanForm = () => {
         />
         <h3 className="self-start md:text-xl text-md lg:px-72 lg:pt-10 md:pt-6 pt-2">
           How much do you plan to spend on this trip?{" "}
-          <span className="text-slate-500"> (Optional) </span>
         </h3>
         <BudgetComponent
           form={form}
