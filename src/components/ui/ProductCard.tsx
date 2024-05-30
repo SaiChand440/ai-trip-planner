@@ -41,9 +41,9 @@ export function ProductCard({ data }) {
                     <span className="bg-zinc-700 rounded-[22px] text-[0.6rem] px-2 py-1 text-white" >
                         {data.trip_data.itineraries.length} days itinerary
                     </span>
-                    <span className="bg-zinc-700 rounded-[22px] text-[0.6rem] px-2 py-1 text-white ml-2">
+                    {/* <span className="bg-zinc-700 rounded-[22px] text-[0.6rem] px-2 py-1 text-white ml-2">
                         $100
-                    </span>
+                    </span> */}
                 </div>
             </div>
         </BackgroundGradient>
