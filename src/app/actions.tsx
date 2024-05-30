@@ -4,6 +4,7 @@ import { streamObject } from "ai";
 import { createStreamableValue } from "ai/rsc";
 import outputSchema from "@/tools/outputSchema";
 import { google } from "@ai-sdk/google";
+import { openai } from "@ai-sdk/openai";
 
 export async function generate(input: string) {
   "use server";
@@ -21,8 +22,8 @@ export async function generate(input: string) {
     let system_prompt = `You are a helpful travel planner specialized in ${destination}. Create an itinerary starting from ${from} and ending on ${to}, including activities for all days along with start and end date. This is a ${usertype} trip. The total budget of the trip is ${budget}, split the budget into daily expenses based on the itinerary.`;
 
     const { partialObjectStream } = await streamObject({
-      model: google("models/gemini-1.5-flash-latest"),
-      // model: openai("gpt-3.5-turbo"),
+      // model: google("models/gemini-1.5-flash-latest"),
+      model: openai("gpt-4o"),
       schema: outputSchema,
       system: system_prompt,
       prompt: `Create an itinerary to ${destination}`,
