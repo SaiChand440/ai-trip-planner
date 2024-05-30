@@ -91,13 +91,13 @@ export const PlacesInputField = ({ form }: IFormProps) => {
               <CommandEmpty
                 className={open && data.length >= 1 ? "block" : "hidden"}
               >
-                No framework found.
+                No destination found.
               </CommandEmpty>
               <CommandGroup className={data.length >= 1 ? "block" : "hidden"}>
-                {data.map((framework) => (
+                {data.map((destination) => (
                   <CommandItem
-                    key={framework.description}
-                    value={framework.description}
+                    key={destination.description}
+                    value={destination.description}
                     onSelect={(currentValue) => {
                       form.setValue("destination", currentValue);
                       setOpen(false);
@@ -105,11 +105,11 @@ export const PlacesInputField = ({ form }: IFormProps) => {
                     }}
                     className="text-start"
                   >
-                    {framework.description}
+                    {destination.description}
                     <CheckIcon
                       className={cn(
                         "ml-auto h-4 w-4",
-                        value === framework.description
+                        value === destination.description
                           ? "opacity-100"
                           : "opacity-0"
                       )}
