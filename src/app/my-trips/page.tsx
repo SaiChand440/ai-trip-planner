@@ -16,7 +16,7 @@ export default function Page() {
     refetchOnWindowFocus: false,
   });
   return (
-    <div className="w-full dark:bg-black bg-white  dark:bg-dot-white/[0.4] bg-dot-black/[0.4]" style={{ flexDirection: 'row', display: 'flex', flexWrap: 'wrap', gap: 50, justifyContent: 'center' }}>
+    <div className="w-full dark:bg-black bg-white  dark:bg-dot-white/[0.4] bg-dot-black/[0.4] flex flex-row flex-wrap gap-12 justify-center py-6">
       {/* @ts-ignore */}
       {data?.data?.map((trip, index) =>
         <ProductCard
