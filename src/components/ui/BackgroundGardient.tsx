@@ -22,7 +22,7 @@ export const BackgroundGradient = ({
         },
     };
     return (
-        <div className={cn("relative p-[3px] group", containerClassName)} style={{ width: 380, height: 430, cursor: 'pointer', justifyContent: 'center', alignItems: 'center', }}>
+        <div className={cn("relative p-[3px] group", containerClassName)} style={{ width: 380, height: 385, cursor: 'pointer', justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
             <motion.div
                 variants={animate ? variants : undefined}
                 initial={animate ? "initial" : undefined}
