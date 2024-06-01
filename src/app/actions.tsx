@@ -5,8 +5,10 @@ import { createStreamableValue } from "ai/rsc";
 import outputSchema from "@/tools/outputSchema";
 import { google } from "@ai-sdk/google";
 import { openai } from "@ai-sdk/openai";
+import { z } from "zod";
+import { formSchema } from "@/components/customcomponents/TripPlanForm";
 
-export async function generate(input: string) {
+export async function generate(input: z.infer<typeof formSchema>) {
   "use server";
 
   const {
@@ -14,7 +16,7 @@ export async function generate(input: string) {
     date: { from, to },
     usertype,
     budget,
-  } = JSON.parse(input);
+  } = input;
 
   const stream = createStreamableValue();
   const status = createStreamableValue('in_progress');

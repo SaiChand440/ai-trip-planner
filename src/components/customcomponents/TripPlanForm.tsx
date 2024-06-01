@@ -11,6 +11,9 @@ import { SelectDatesComponent } from "@/app/new-trip/components/SelectDatesCompo
 import { UserTypeRadioGroup } from "@/app/new-trip/components/UserTypeRadioGroup";
 import { BudgetComponent } from "@/app/new-trip/components/BudgetComponent";
 import { usePathname, useRouter } from "next/navigation";
+import { v4 as uuidv4 } from "uuid";
+import { useQuery } from "@tanstack/react-query";
+import { useValuesStore } from "@/store/valuesStore";
 
 export const formSchema = z.object({
   destination: z.string().min(2, {
@@ -30,12 +33,13 @@ export const formSchema = z.object({
   usertype: z.enum(["solo", "couple", "friends", "family"], {
     required_error: "You need to select the type of traveller you are",
   }),
-  budget: z.enum(["<500", "500-1000", "1000-2000", "2000-5000", "5000-10000", ">10000"], {
-    required_error: "You need to select the type of traveller you are",
-  }),
+  budget: z.enum(
+    ["<500", "500-1000", "1000-2000", "2000-5000", "5000-10000", ">10000"],
+    {
+      required_error: "You need to select the type of traveller you are",
+    }
+  ),
 });
-
-
 
 export const TripPlanForm = () => {
   // 1. Define your form.
@@ -43,16 +47,28 @@ export const TripPlanForm = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       destination: "",
-      usertype: "solo"
+      usertype: "solo",
     },
   });
 
   const route = useRouter();
-  // const { setValues } = useValuesStore();
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // setValues(values);
-    const serializedObject = encodeURIComponent(JSON.stringify(values));
-    route.push(`/itinerary?value=${serializedObject}`);
+    const trip_id = uuidv4();
+    (async () => {
+      await fetch(`${window.location.origin}/api/create-trip`, {
+        method: "POST",
+        body: JSON.stringify({
+          destination: values.destination,
+          budget: values.budget,
+          start_date: values.date.from,
+          end_date: values.date.to,
+          user_type: values.usertype,
+          trip_id: trip_id,
+        }),
+      });
+      route.push(`/itinerary/${encodeURIComponent(trip_id)}`);
+    })();
   }
 
   function onError(a: any) {
@@ -94,4 +110,4 @@ export const TripPlanForm = () => {
       </form>
     </Form>
   );
-}
+};
