@@ -3,7 +3,7 @@ import postgres from "postgres";
 import { drizzle } from "drizzle-orm/postgres-js";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
-import { formSchema } from "@/components/customcomponents/TripPlanForm";
+import { formSchema, itineraryResponseSchema } from "@/components/customcomponents/TripPlanForm";
 import { addDays } from "date-fns";
 
 const connectionString = process.env.DATABASE_URL;
@@ -14,30 +14,6 @@ export const maxDuration = 60;
 
 const client = postgres(connectionString!);
 const db = drizzle(client);
-
-export const itineraryResponseSchema = z.object({
-  destination: z.string().min(2, {
-    message: "destination must be at least 2 characters.",
-  }),
-  date: z
-    .object({
-      from: z.date(),
-      to: z.date(),
-    })
-    .refine(
-      (data) =>
-        data.from > addDays(new Date(), -1) &&
-        data.to <= addDays(data.from, 10),
-      "Start date must be in the future"
-    ),
-  usertype: z.enum(["solo", "couple", "friends", "family"], {
-    required_error: "You need to select the type of traveller you are",
-  }),
-  budget: z.enum(["<500", "500-1000", "1000-2000", "2000-5000", "5000-10000", ">10000"], {
-    required_error: "You need to select the type of traveller you are",
-  }),
-  trip_data: z.string()
-});
 
 export async function GET(request: Request) {
     const url = new URL(request.url);

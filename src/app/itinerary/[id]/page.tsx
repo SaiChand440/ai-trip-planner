@@ -5,9 +5,8 @@ import { readStreamableValue } from "ai/rsc";
 import { unstable_noStore as noStore } from "next/cache";
 import { generate } from "@/app/actions";
 import { z } from "zod";
-import { formSchema } from "@/components/customcomponents/TripPlanForm";
-import { itineraryResponseSchema } from "@/app/api/get-trip/route";
 import { Itinerary } from "../components/Itinerary";
+import { itineraryResponseSchema } from "@/components/customcomponents/TripPlanForm";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;

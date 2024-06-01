@@ -41,6 +41,33 @@ export const formSchema = z.object({
   ),
 });
 
+export const itineraryResponseSchema = z.object({
+  destination: z.string().min(2, {
+    message: "destination must be at least 2 characters.",
+  }),
+  date: z
+    .object({
+      from: z.date(),
+      to: z.date(),
+    })
+    .refine(
+      (data) =>
+        data.from > addDays(new Date(), -1) &&
+        data.to <= addDays(data.from, 10),
+      "Start date must be in the future"
+    ),
+  usertype: z.enum(["solo", "couple", "friends", "family"], {
+    required_error: "You need to select the type of traveller you are",
+  }),
+  budget: z.enum(
+    ["<500", "500-1000", "1000-2000", "2000-5000", "5000-10000", ">10000"],
+    {
+      required_error: "You need to select the type of traveller you are",
+    }
+  ),
+  trip_data: z.string(),
+});
+
 export const TripPlanForm = () => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
