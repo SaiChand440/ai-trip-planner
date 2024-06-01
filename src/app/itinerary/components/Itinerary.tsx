@@ -25,6 +25,10 @@ export const Itinerary = ({ data, outputFromApi }: IProps) => {
             items={requiredData?.itineraries}
             outputFromApi={outputFromApi}
           ></HoverEffect>
+          <div style={{ flex: 1, display: 'flex', justifyContent: 'center', marginTop: 20 }}>
+
+            <p style={{ textDecorationLine: 'underline' }}>This itinerary is AI generated 🤖</p>
+          </div>
         </div>
       </div>
     </div>

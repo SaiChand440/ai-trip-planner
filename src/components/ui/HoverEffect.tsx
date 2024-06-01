@@ -21,7 +21,7 @@ export const HoverEffect = ({
   outputFromApi?: boolean;
 }) => {
   let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
+  console.log("item,", items)
   return (
     <div className="w-full md:w-4/5 justify-center md:ml-[10%]">
       {items?.map((item, idx) => (
@@ -57,6 +57,11 @@ export const HoverEffect = ({
                 <Image alt="image" src={item.image} height={250} width={250} />
               ) : null}
               <div className="flex flex-col pl-6 pr-6 ">
+                <div className="flex flex-row" style={{ justifyContent: 'space-between' }}>
+                  <CardDescription>from - ${item.budget}</CardDescription>
+
+                  <CardDescription>visit on {item.date}</CardDescription>
+                </div>
                 <CardTitle>{item.title}</CardTitle>
                 <CardDescription>{item.text}</CardDescription>
               </div>
@@ -69,53 +74,53 @@ export const HoverEffect = ({
 };
 
 export const Card = ({
-    className,
-    children,
+  className,
+  children,
 }: {
-    className?: string;
-    children: React.ReactNode;
+  className?: string;
+  children: React.ReactNode;
 }) => {
-    return (
-        <div
-            className={cn(
-                "rounded-lg md:rounded-2xl h-full w-full p-2 md:p-4 overflow-hidden bg-black border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-20 ",
-                className,
-            )}
-        >
-            <div className="relative z-50">
-                <div className="p-2 md:p-4">{children}</div>
-            </div>
-        </div>
-    );
+  return (
+    <div
+      className={cn(
+        "rounded-lg md:rounded-2xl h-full w-full p-2 md:p-4 overflow-hidden bg-black border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-20 ",
+        className,
+      )}
+    >
+      <div className="relative z-50">
+        <div className="p-2 md:p-4">{children}</div>
+      </div>
+    </div>
+  );
 };
 export const CardTitle = ({
-    className,
-    children,
+  className,
+  children,
 }: {
-    className?: string;
-    children: React.ReactNode;
+  className?: string;
+  children: React.ReactNode;
 }) => {
-    return (
-        <h4 className={cn("text-zinc-100 font-bold tracking-wide mt-4", className)}>
-            {children}
-        </h4>
-    );
+  return (
+    <h4 className={cn("text-zinc-100 font-bold tracking-wide mt-4", className)}>
+      {children}
+    </h4>
+  );
 };
 export const CardDescription = ({
-    className,
-    children,
+  className,
+  children,
 }: {
-    className?: string;
-    children: React.ReactNode;
+  className?: string;
+  children: React.ReactNode;
 }) => {
-    return (
-        <p
-            className={cn(
-                "mt-2 md:mt-8 text-zinc-400 tracking-wide leading-relaxed text-sm",
-                className,
-            )}
-        >
-            {children}
-        </p>
-    );
+  return (
+    <p
+      className={cn(
+        "mt-2 md:mt-8 text-zinc-400 tracking-wide leading-relaxed text-sm",
+        className,
+      )}
+    >
+      {children}
+    </p>
+  );
 };
