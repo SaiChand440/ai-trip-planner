@@ -20,7 +20,7 @@ export function ProductCard({ data }) {
                     src={data.trip_data.welcome.image}
                     alt={data.trip_data.title}
                     height="200"
-                    width="350"
+                    width="320"
                     className="rounded-[8px]"
                     layout='fixed'
                 />
