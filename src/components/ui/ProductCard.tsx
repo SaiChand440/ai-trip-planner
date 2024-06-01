@@ -3,11 +3,18 @@ import React from "react";
 
 import Image from "next/image";
 import { BackgroundGradient } from "./BackgroundGardient";
+import { useRouter } from "next/navigation";
 //@ts-ignore
 export function ProductCard({ data }) {
+    const route = useRouter();
+    if (!data.trip_data) {
+        return null;
+    }
     return (
         <BackgroundGradient className="rounded-[22px] max-w-sm p-4 sm:p-10 bg-white dark:bg-zinc-900">
-            <div style={{ height: 345, width: 300 }}>
+            <div style={{ height: 345, width: 300 }} onClick={() =>{
+                route.push(`/itinerary/${encodeURIComponent(data.trip_id)}`);
+            }}>
 
                 <Image
                     src={data.trip_data.welcome.image}

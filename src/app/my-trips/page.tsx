@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react'
 
 export default function Page() {
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["mytrips"],
     queryFn: async () => {
       return (
@@ -15,14 +15,22 @@ export default function Page() {
     },
     refetchOnWindowFocus: false,
   });
+
+  if (isLoading) {
+    return (
+      <div className="w-full dark:bg-black bg-white  dark:bg-dot-white/[0.4] bg-dot-black/[0.4] flex flex-row flex-wrap gap-12 justify-center py-6">
+        {/* @ts-ignore */}
+        <h2>Loading...</h2>
+      </div>
+    );
+  }
+
+
   return (
     <div className="w-full dark:bg-black bg-white  dark:bg-dot-white/[0.4] bg-dot-black/[0.4] flex flex-row flex-wrap gap-12 justify-center py-6">
       {/* @ts-ignore */}
       {data?.data?.map((trip, index) =>
-        <ProductCard
-          key={index}
-          data={trip} />
-
+          <ProductCard data={trip} key={index} />
       )}
     </div>
   );
