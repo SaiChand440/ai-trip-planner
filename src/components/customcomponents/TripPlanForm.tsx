@@ -97,7 +97,6 @@ export const TripPlanForm = () => {
         }),
       });
       route.push(`/itinerary/${encodeURIComponent(trip_id)}`);
-      setLoading(false)
     })();
   }
 
