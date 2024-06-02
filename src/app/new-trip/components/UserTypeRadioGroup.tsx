@@ -52,7 +52,7 @@ export const UserTypeRadioGroup = ({ form , className}: IFormProps) => {
                     <rect width="20" height="14" x="2" y="5" rx="2" />
                     <path d="M2 10h20" />
                   </svg>
-                  <p className="text-sm text-center md:text-base">Solo Trip</p>
+                  <p className="text-xs text-center md:text-base">Solo Trip</p>
                 </Label>
               </div>
               <div>
@@ -66,7 +66,7 @@ export const UserTypeRadioGroup = ({ form , className}: IFormProps) => {
                   className="flex flex-row md:flex-col items-center justify-center md:justify-between gap-3 rounded-md border-2 border-muted bg-popover md:p-4 p-2 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                 >
                   <CheckIcon className="h-6 w-6" />
-                  <p className="text-sm text-center md:text-base">Couples Trip</p>
+                  <p className="text-xs text-center md:text-base">Couples Trip</p>
                 </Label>
               </div>
               <div>
@@ -80,7 +80,7 @@ export const UserTypeRadioGroup = ({ form , className}: IFormProps) => {
                   className="flex flex-row md:flex-col items-center justify-center md:justify-between gap-3 rounded-md border-2 border-muted bg-popover md:p-4 p-2 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                 >
                   <CheckIcon className="h-6 w-6" />
-                  <p className="text-sm text-center md:text-base">Friends Trip</p>
+                  <p className="text-xs text-center md:text-base">Friends Trip</p>
                 </Label>
               </div>
               <div>
@@ -94,7 +94,7 @@ export const UserTypeRadioGroup = ({ form , className}: IFormProps) => {
                   className="flex flex-row md:flex-col items-center justify-center md:justify-between gap-3 rounded-md border-2 border-muted bg-popover md:p-4 p-2 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                 >
                   <CheckIcon className="h-6 w-6" />
-                  <p className="text-sm text-center md:text-base">Family Trip</p>
+                  <p className="text-xs text-center md:text-base">Family Trip</p>
                 </Label>
               </div>
             </RadioGroup>

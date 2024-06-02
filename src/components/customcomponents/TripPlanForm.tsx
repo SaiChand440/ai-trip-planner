@@ -108,28 +108,28 @@ export const TripPlanForm = () => {
         onSubmit={form.handleSubmit(onSubmit, onError)}
         className="flex flex-col w-full sm:container space-y-4 z-40 items-center"
       >
-        <h3 className="md:self-start self-center md:text-xl text-md lg:px-72">
+        <h3 className="md:self-start self-center md:text-xl text-md lg:px-20 xl:px-64">
           Where do you plan to go?
         </h3>
-        <div className="flex justify-center w-full lg:px-64 flex-col md:flex-row gap-3 md:gap-6">
+        <div className="flex justify-center w-full lg:px-14 xl:px-52 flex-col md:flex-row gap-3 md:gap-6">
           <PlacesInputField form={form} />
           <SelectDatesComponent form={form} />
         </div>
-        <h3 className="self-start lg:text-xl md:text-lg text-md lg:px-72 lg:pt-10 md:pt-6 pt-2">
+        <h3 className="self-start lg:text-xl md:text-lg text-md lg:px-20 xl:px-64 lg:pt-10 md:pt-6 pt-2">
           Is it going to be a?
         </h3>
         <UserTypeRadioGroup
           form={form}
-          className="flex justify-stretch px-0 lg:px-64"
+          className="flex justify-stretch px-0 lg:px-14 xl:px-52"
         />
-        <h3 className="self-start md:text-xl text-md lg:px-72 lg:pt-10 md:pt-6 pt-2">
+        <h3 className="self-start md:text-xl text-md lg:px-20 xl:px-64 lg:pt-10 md:pt-6 pt-2">
           How much do you plan to spend on this trip?{" "}
         </h3>
         <BudgetComponent
           form={form}
-          className="flex justify-stretch px-0 lg:px-64 md:pb-10 pb-2"
+          className="flex justify-stretch px-0 lg:px-14 xl:px-52 md:pb-10 pb-2"
         />
-        <div className="pb-2 w-full grid justify-stretch items-stretch lg:px-72">
+        <div className="pb-2 w-full lg:w-[60%] xl:w-[30%] grid justify-stretch items-stretch ">
           <Button className="z-10 w-full lg:w-full mb-10" type="submit">
             Submit
           </Button>
