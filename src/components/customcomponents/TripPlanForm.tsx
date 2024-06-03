@@ -14,6 +14,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
 import { useQuery } from "@tanstack/react-query";
 import { useValuesStore } from "@/store/valuesStore";
+import { useState } from "react";
 
 export const formSchema = z.object({
   destination: z.string().min(2, {
@@ -81,6 +82,7 @@ export const TripPlanForm = () => {
   const route = useRouter();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    setLoading(true);
     const trip_id = uuidv4();
     (async () => {
       await fetch(`${window.location.origin}/api/create-trip`, {
@@ -101,7 +103,7 @@ export const TripPlanForm = () => {
   function onError(a: any) {
     console.log(a);
   }
-
+  const [loading, setLoading] = useState(false);
   return (
     <Form {...form}>
       <form
@@ -130,9 +132,13 @@ export const TripPlanForm = () => {
           className="flex justify-stretch px-0 lg:px-14 xl:px-52 md:pb-10 pb-2"
         />
         <div className="pb-2 w-full lg:w-[60%] xl:w-[30%] grid justify-stretch items-stretch ">
-          <Button className="z-10 w-full lg:w-full mb-10" type="submit">
-            Submit
-          </Button>
+          {
+            !loading ? <Button className="z-10 w-full lg:w-full mb-10" type="submit">
+              Submit
+            </Button> : <Button className="z-10 w-full lg:w-full mb-10" >
+              Loading...
+            </Button>
+          }
         </div>
       </form>
     </Form>

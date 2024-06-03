@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-
+import placeholder from '../../../public/images/stock/placeholder.png'
 export const HoverEffect = ({
   items,
   className,
@@ -55,7 +55,8 @@ export const HoverEffect = ({
             <div className="flex flex-col md:flex-row items-center justify-center">
               {outputFromApi ? (
                 <Image alt="image" src={item.image} height={250} width={250} />
-              ) : null}
+              ) : <Image alt="" src={placeholder} height={250} width={250} />
+              }
               <div className="flex flex-col pl-6 pr-6 ">
                 <div className="flex flex-row" style={{ justifyContent: 'space-between' }}>
                 
