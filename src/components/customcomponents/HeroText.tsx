@@ -7,14 +7,14 @@ export const HeroText = () => {
 
 
   return (
-    <div className="flex flex-col items-center">
-      <h1 className="font-extrabold text-neutral-200 lg:text-8xl text-4xl z-10 text-center">
+    <div className="flex flex-col items-center sm:w-[100%] md:w-[50%] lg:w-[75%] xl:w-auto">
+      <h1 className="font-extrabold text-neutral-200 lg:text-6xl xl:text-8xl text-4xl text-center">
         {"Plan your trip based on"}
       </h1>
-      <div className="z-10 px-20 py-5">
+      <div className="md:px-20 py-5">
         <TypeWriter />
       </div>
-      <p className="text-center text-xl m-4">
+      <p className="w-full md:w-[75%] xl:w-full text-center text-xl m-3">
        {"Unleash Your Wanderlust with TravelMate AI: Where Intelligent Planning Meets Limitless Adventure!"}
       </p>
      <StartPlanningButton />

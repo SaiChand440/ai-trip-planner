@@ -80,9 +80,9 @@ export default function Page({ params }: { params: { id: string } }) {
 
   return (
     <>
-      <div className="w-full h-full dark:bg-black bg-white  dark:bg-dot-white/[0.4] bg-dot-black/[0.4] flex items-center justify-center">
-        <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
-        <div className="container flex justify-start items-center w-full mt-3 flex-col z-50">
+      <div className="w-full h-auto dark:bg-black bg-white flex items-center justify-center pt-36">
+        {/* <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div> */}
+        <div className="flex justify-start items-center w-full mt-3 flex-col dark:bg-black bg-white">
           <Itinerary
             data={data?.trip_data ?? responseData?.data ?? itineraryData}
             outputFromApi={

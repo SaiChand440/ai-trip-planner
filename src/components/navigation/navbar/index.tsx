@@ -34,8 +34,8 @@ export const Navbar = ({
 
 
   return (
-    <div >
-      <div className="w-full h-20 sticky top-0 z-10">
+    <div>
+      <div className="w-full h-20 fixed bg-black top-0 z-20">
         <div className="container mx-auto px-4 h-full">
           <div className="flex justify-between items-center h-full">
             <Logo />
