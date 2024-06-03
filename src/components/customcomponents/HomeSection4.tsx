@@ -14,20 +14,53 @@ export default function HomeSection4() {
         <div className="mx-auto mt-10 grid h-full max-w-6xl grid-cols-1 flex-wrap items-start gap-5 md:mt-20 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
           <div className="w-full h-full flex-1 rounded-xl border border-solid border-gray-200 p-6 last:md:col-span-2 last:lg:col-span-1">
             <p className="mt-2 text-base text-gray-500 md:text-lg">
-              Our AI algorithms analyze your preferences to craft the most
-              efficient route, saving you time and effort.
+              Using Hadana was a game-changer for my Thailand trip. Their AI
+              provided spot-on recommendations for activities, and activities,
+              making my journey seamless and unforgettable. From hidden gems in
+              <span className="font-bold text-gray-300">
+                {" "}
+                Bangkok to Phuket&apos;s serene beaches
+              </span>
+              , every detail was planned. Hadana truly elevated my travel
+              experience. Highly recommended!
+            </p>
+            <p>
+              <span className=" text-base text-gray-500 md:text-lg italic">
+                - Vara
+              </span>
             </p>
           </div>
           <div className="w-full h-full flex-1 rounded-xl border border-solid border-gray-200 p-6 last:md:col-span-2 last:lg:col-span-1">
             <p className="mt-2 text-base text-gray-500 md:text-lg">
-              Shape your journey by freely adding, editing, or deleting
-              activities from your itinerary.
+              Planning a{" "}
+              <span className="font-bold text-gray-300">South India</span> trip
+              felt daunting, but Hadana changed everything! Their AI
+              recommendations were spot-on - hidden gems, must-see temples, and
+              delicious local eats I wouldn&apos;t have found otherwise. Hadana
+              curated the perfect itinerary, saving me tons of time and ensuring
+              an unforgettable adventure. South India - you stole my heart, and
+              Hadana made it all possible!
+            </p>
+            <p>
+              <span className=" text-base text-gray-500 md:text-lg italic">
+                - Meghna
+              </span>
             </p>
           </div>
           <div className="w-full h-full flex-1 rounded-xl border border-solid border-gray-200 p-6 last:md:col-span-2 last:lg:col-span-1">
             <p className="mt-2 text-base text-gray-500 md:text-lg">
-              Discover local cuisines and hidden gems recommended by our AI,
-              tailored to your taste buds.
+              Hadana was a lifesaver for my recent trip to{" "}
+              <span className="font-bold text-gray-300"> Europe </span>. Their
+              AI recommendations were excellent, taking me beyond the tourist
+              hotspots. I explored hidden gems, enjoyed delicious local cuisine,
+              and even found some great deals on unique experiences.
+              Hadana&apos;s curated itinerary saved me time and made sure my
+              European adventure was unforgettable. Highly recommend!
+            </p>
+            <p>
+              <span className=" text-base text-gray-500 md:text-lg italic">
+                - Haneef Ahmed
+              </span>
             </p>
           </div>
         </div>

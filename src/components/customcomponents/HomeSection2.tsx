@@ -15,12 +15,14 @@ export default function HomeSection2() {
               The most simple
             </h3>
             <p className="text-gray-200">
-              {"Design your ideal itinerary with Hadana AI. Our sophisticated algorithms consider your chosen attractions, budget, and preferences to craft a personalized travel plan that's perfect for you."}
+              {
+                "Design your ideal itinerary with Hadana AI. Our sophisticated algorithms consider your chosen attractions, budget, and preferences to craft a personalized travel plan that's perfect for you."
+              }
             </p>
           </div>
           <div className="w-full p-4 md:p-6 sm:w-1/2 flex justify-center">
             <Image
-              src={"/images/temporary_logo.png"}
+              src={"/images/home_icon_1.png"}
               alt="temporary"
               width={"250"}
               height={"250"}
@@ -31,7 +33,7 @@ export default function HomeSection2() {
         <div className="flex flex-wrap flex-col-reverse sm:flex-row mt-4">
           <div className="w-full p-4 md:p-10 sm:w-1/2 flex justify-center">
             <Image
-              src={"/images/temporary_logo.png"}
+              src={"/images/home_icon_2.png"}
               alt="temporary"
               width={"250"}
               height={"250"}
