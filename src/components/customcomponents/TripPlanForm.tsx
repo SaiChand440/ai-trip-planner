@@ -14,7 +14,9 @@ import { usePathname, useRouter } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
 import { useQuery } from "@tanstack/react-query";
 import { useValuesStore } from "@/store/valuesStore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Session } from "@supabase/supabase-js";
+import { createSupabaseClient } from "@/lib/supabase/browser";
 
 export const formSchema = z.object({
   destination: z.string().min(2, {
@@ -69,6 +71,8 @@ export const itineraryResponseSchema = z.object({
   trip_data: z.string(),
 });
 
+const supabase = createSupabaseClient();
+
 export const TripPlanForm = () => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -78,6 +82,15 @@ export const TripPlanForm = () => {
       usertype: "solo",
     },
   });
+
+
+  const [session, setSession] = useState<Session | null>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then((userData) => {
+      setSession(userData.data.session);
+    });
+  }, [setSession]);
 
   const route = useRouter();
 

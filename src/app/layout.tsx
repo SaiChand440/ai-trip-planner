@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navigation } from "../components/navigation";
 import ReactQueryProvider from "@/service/ReactQueryProvider";
-import FooterSection from "@/components/customcomponents/FooterSection";
 
 export const fontSans = FontSans({
   subsets: ["latin"],
