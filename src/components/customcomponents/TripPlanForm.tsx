@@ -17,6 +17,15 @@ import { useValuesStore } from "@/store/valuesStore";
 import { useEffect, useState } from "react";
 import { Session } from "@supabase/supabase-js";
 import { createSupabaseClient } from "@/lib/supabase/browser";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 export const formSchema = z.object({
   destination: z.string().min(2, {
@@ -83,8 +92,18 @@ export const TripPlanForm = () => {
     },
   });
 
+  const handleLoginWithOAuth = async () => {
+    const supabase = createSupabaseClient();
+    supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: location.origin + "/auth/callback",
+      },
+    });
+  };
 
   const [session, setSession] = useState<Session | null>(null);
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then((userData) => {
@@ -96,21 +115,26 @@ export const TripPlanForm = () => {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
-    const trip_id = uuidv4();
-    (async () => {
-      await fetch(`${window.location.origin}/api/create-trip`, {
-        method: "POST",
-        body: JSON.stringify({
-          destination: values.destination,
-          budget: values.budget,
-          start_date: values.date.from,
-          end_date: values.date.to,
-          user_type: values.usertype,
-          trip_id: trip_id,
-        }),
-      });
-      route.push(`/itinerary/${encodeURIComponent(trip_id)}`);
-    })();
+    if (!session?.user.user_metadata) {
+      setOpenModal(true);
+      return;
+    } else {
+      const trip_id = uuidv4();
+      (async () => {
+        await fetch(`${window.location.origin}/api/create-trip`, {
+          method: "POST",
+          body: JSON.stringify({
+            destination: values.destination,
+            budget: values.budget,
+            start_date: values.date.from,
+            end_date: values.date.to,
+            user_type: values.usertype,
+            trip_id: trip_id,
+          }),
+        });
+        route.push(`/itinerary/${encodeURIComponent(trip_id)}`);
+      })();
+    }
   }
 
   function onError(a: any) {
@@ -118,42 +142,65 @@ export const TripPlanForm = () => {
   }
   const [loading, setLoading] = useState(false);
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit, onError)}
-        className="flex flex-col w-full sm:container space-y-4 z-40 items-center"
-      >
-        <h3 className="md:self-start self-center md:text-xl text-md lg:px-20 xl:px-64">
-          Where do you plan to go?
-        </h3>
-        <div className="flex justify-center w-full lg:px-14 xl:px-52 flex-col md:flex-row gap-3 md:gap-6">
-          <PlacesInputField form={form} />
-          <SelectDatesComponent form={form} />
-        </div>
-        <h3 className="self-start lg:text-xl md:text-lg text-md lg:px-20 xl:px-64 lg:pt-10 md:pt-6 pt-2">
-          Is it going to be a?
-        </h3>
-        <UserTypeRadioGroup
-          form={form}
-          className="flex justify-stretch px-0 lg:px-14 xl:px-52"
-        />
-        <h3 className="self-start md:text-xl text-md lg:px-20 xl:px-64 lg:pt-10 md:pt-6 pt-2">
-          How much do you plan to spend on this trip?{" "}
-        </h3>
-        <BudgetComponent
-          form={form}
-          className="flex justify-stretch px-0 lg:px-14 xl:px-52 md:pb-10 pb-2"
-        />
-        <div className="pb-2 w-full lg:w-[60%] xl:w-[30%] grid justify-stretch items-stretch ">
-          {
-            !loading ? <Button className="z-10 w-full lg:w-full mb-10" type="submit">
-              Submit
-            </Button> : <Button className="z-10 w-full lg:w-full mb-10" >
-              Loading...
-            </Button>
-          }
-        </div>
-      </form>
-    </Form>
+    <Dialog open={openModal}>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit, onError)}
+          className="flex flex-col w-full sm:container space-y-4 z-40 items-center"
+        >
+          <h3 className="md:self-start self-center md:text-xl text-md lg:px-20 xl:px-64">
+            Where do you plan to go?
+          </h3>
+          <div className="flex justify-center w-full lg:px-14 xl:px-52 flex-col md:flex-row gap-3 md:gap-6">
+            <PlacesInputField form={form} />
+            <SelectDatesComponent form={form} />
+          </div>
+          <h3 className="self-start lg:text-xl md:text-lg text-md lg:px-20 xl:px-64 lg:pt-10 md:pt-6 pt-2">
+            Is it going to be a?
+          </h3>
+          <UserTypeRadioGroup
+            form={form}
+            className="flex justify-stretch px-0 lg:px-14 xl:px-52"
+          />
+          <h3 className="self-start md:text-xl text-md lg:px-20 xl:px-64 lg:pt-10 md:pt-6 pt-2">
+            How much do you plan to spend on this trip?{" "}
+          </h3>
+          <BudgetComponent
+            form={form}
+            className="flex justify-stretch px-0 lg:px-14 xl:px-52 md:pb-10 pb-2"
+          />
+          <div className="pb-2 w-full lg:w-[60%] xl:w-[30%] grid justify-stretch items-stretch ">
+            {!loading ? (
+              <Button className="z-10 w-full lg:w-full mb-10" type="submit">
+                Submit
+              </Button>
+            ) : (
+              <Button className="z-10 w-full lg:w-full mb-10">
+                Loading...
+              </Button>
+            )}
+          </div>
+        </form>
+      </Form>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Sign In</DialogTitle>
+          <DialogDescription>
+            Sign in to save your trip plans, see our recommended trips and
+            access them on any device.
+          </DialogDescription>
+        </DialogHeader>
+        <DialogFooter>
+          <Button
+            variant="default"
+            onClick={() => {
+              handleLoginWithOAuth();
+            }}
+          >
+            Continue
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 };
