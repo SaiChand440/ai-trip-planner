@@ -1,6 +1,6 @@
 export default function HomeSection3() {
   return (
-    <div className="w-full h-auto md:h-[calc(100vh-5rem)] dark:bg-black bg-white py-10 md:pt-28 md:pb-0">
+    <div className="w-full h-auto md:h-[calc(100vh-10rem)] dark:bg-black bg-white py-10 md:pt-20 md:pb-0">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h3 className="px-6 text-center text-3xl font-bold md:text-4xl lg:px-12 xl:text-5xl">

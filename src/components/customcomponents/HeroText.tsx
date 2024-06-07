@@ -15,7 +15,7 @@ export const HeroText = () => {
         <TypeWriter />
       </div>
       <p className="w-full md:w-[75%] xl:w-full text-center text-xl m-3">
-       {"Unleash Your Wanderlust with TravelMate AI: Where Intelligent Planning Meets Limitless Adventure!"}
+       {"Unleash Your Wanderlust with Hadana: Where Intelligent Planning Meets Limitless Adventure!"}
       </p>
      <StartPlanningButton />
     </div>
