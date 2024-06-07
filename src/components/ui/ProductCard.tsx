@@ -41,17 +41,11 @@ export function ProductCard({ data }) {
                 }}>
                     {data.trip_data.welcome.text.substring(0, 120)}...
                 </p>
-                {/* <button className="rounded-full text-white  space-x-1 bg-black mt-4 text-xs font-bold dark:bg-zinc-800" style={{ paddingTop: 5, paddingBottom: 5, paddingLeft: 8, paddingRight: 8 }}>
-                <span>Preview</span>
-            </button> */}
                 <div style={{ marginTop: 1 }}>
 
                     <span className="bg-zinc-700 rounded-[22px] text-[0.6rem] px-2 py-1 text-white" >
                         {data.trip_data.itineraries.length} days itinerary
                     </span>
-                    {/* <span className="bg-zinc-700 rounded-[22px] text-[0.6rem] px-2 py-1 text-white ml-2">
-                        $100
-                    </span> */}
                 </div>
             </div>
         </BackgroundGradient>

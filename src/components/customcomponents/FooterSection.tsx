@@ -20,7 +20,7 @@ export default function FooterSection() {
             </h3>
             <p className="mx-auto mb-5 mt-6 max-w-3xl text-lg text-gray-500">
               Hadana is an AI-powered travel planner, please consider it as a
-              baseline for your plan. If you need a all inclusion package with
+              baseline for your plan. If you need an all inclusion package with
               experiences booked, Let our team with 25+ countries travel
               experience handle all your trip and ticket bookings. Contact us
               today to customize your journey!
