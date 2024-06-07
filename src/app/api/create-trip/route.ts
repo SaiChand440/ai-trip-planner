@@ -36,7 +36,7 @@ export async function POST(request: Request) {
   const supabase = createSupabaseServer();
   const userId = (await supabase.auth.getUser()).data.user?.id;
   await db.insert(itinerarySchema).values({
-    user_id: "3d1017e9-afcc-4774-8fa5-4cc6f90de98b",
+    user_id: userId,
     created_at: new Date(),
     destination: destination,
     budget: budget,

@@ -142,7 +142,7 @@ export const TripPlanForm = () => {
   }
   const [loading, setLoading] = useState(false);
   return (
-    <Dialog open={openModal}>
+    <>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit, onError)}
@@ -182,25 +182,27 @@ export const TripPlanForm = () => {
           </div>
         </form>
       </Form>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Sign In</DialogTitle>
-          <DialogDescription>
-            Sign in to save your trip plans, see our recommended trips and
-            access them on any device.
-          </DialogDescription>
-        </DialogHeader>
-        <DialogFooter>
-          <Button
-            variant="default"
-            onClick={() => {
-              handleLoginWithOAuth();
-            }}
-          >
-            Continue
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+      <Dialog open={openModal}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Sign In</DialogTitle>
+            <DialogDescription>
+              Sign in to save your trip plans, see our recommended trips and
+              access them on any device.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant="default"
+              onClick={() => {
+                handleLoginWithOAuth();
+              }}
+            >
+              Continue
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };

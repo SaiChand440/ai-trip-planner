@@ -61,9 +61,6 @@ export async function PUT(request: Request) {
     })
   );
 
-  const supabase = createSupabaseServer();
-  const userId = (await supabase.auth.getUser()).data.user?.id;
-
   await db.update(itinerarySchema).set({
     trip_data: output,
   }).where(eq(itinerarySchema.trip_id, trip_id));
