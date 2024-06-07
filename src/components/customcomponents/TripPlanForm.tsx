@@ -138,7 +138,6 @@ export const TripPlanForm = () => {
   }
 
   function onError(a: any) {
-    console.log(a);
   }
   const [loading, setLoading] = useState(false);
   return (

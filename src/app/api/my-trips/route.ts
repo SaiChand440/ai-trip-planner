@@ -18,6 +18,18 @@ export async function GET() {
   const supabase = createSupabaseServer();
   const userId = (await supabase.auth.getUser()).data.user?.id!;
 
+  if (!userId) {
+    return new Response(
+      JSON.stringify({
+        status: "ok",
+        data: [],
+      }),
+      {
+        status: 200,
+      }
+    );
+  }
+
   const output = await db
     .select()
     .from(itinerarySchema)

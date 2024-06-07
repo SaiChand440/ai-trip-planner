@@ -6,7 +6,7 @@ import React from "react";
 
 export default function Page() {
   const { data, isLoading } = useQuery({
-    queryKey: ["mytrips"],
+    queryKey: ["recommended-trips"],
     queryFn: async () => {
       return (
         await fetch(`${window.location.origin}/api/recommended-trips`, {

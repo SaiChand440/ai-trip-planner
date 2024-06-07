@@ -21,14 +21,10 @@ export const HoverEffect = ({
   outputFromApi?: boolean;
 }) => {
   let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  console.log("item,", items)
   return (
     <div className="w-full md:w-4/5 justify-center md:ml-[10%]">
       {items?.map((item, idx) => (
-        // <Link
         <div
-          // href={"item?.link"}
-          // style={{ width: '50%' }}
           key={idx}
           className="relative group block p-2 h-full"
           onMouseEnter={() => setHoveredIndex(idx)}
