@@ -19,10 +19,9 @@ export function ProductCard({ data }) {
                 <Image
                     src={data.trip_data.welcome.image}
                     alt={data.trip_data.title}
-                    height="200"
-                    width="320"
-                    className="rounded-[8px]"
-                    layout='fixed'
+                    height={200}
+                    width={300}
+                    className="rounded-[24px] p-2 object-cover w-full h-[60%]"
                 />
                 <p className="text-base sm:text-xl text-black mt-4 mb-2 dark:text-neutral-200" style={{
                     overflow: 'hidden',
