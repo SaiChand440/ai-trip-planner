@@ -1,10 +1,16 @@
 import Link from 'next/link';
 import React from 'react'
 
-export const NavList = () => {
+export const NavList = ({toggle}:{toggle?:() => void}) => {
+  const clickHandler = ()=>{
+    if(toggle){
+      toggle()
+    }
+  }
   return (
     <>
       <li
+        onClick={clickHandler}
         className="hover:underline   
                 hover:text-slate-300  
                   inline-block  
@@ -18,6 +24,7 @@ export const NavList = () => {
         </Link>
       </li>
       <li
+        onClick={clickHandler}
         className="hover:underline   
                 hover:text-slate-300  
                   inline-block  
@@ -31,6 +38,7 @@ export const NavList = () => {
         </Link>
       </li>
       <li
+        onClick={clickHandler}
         className="hover:underline   
                 hover:text-slate-300  
                   inline-block  
