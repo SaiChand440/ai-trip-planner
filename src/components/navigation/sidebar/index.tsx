@@ -47,7 +47,7 @@ export const Sidebar = ({
           </svg>
         </button>
         <ul className="flex flex-col justify-evenly text-center leading-relaxed text-xl z-10">
-          <NavList />
+          <NavList toggle={toggle}/>
           {!session?.user.user_metadata ? 
           <SignInDialog isSideBar={true} toggle={toggle}/> : 
           <Button variant="default" className="md:hidden block" onClick={()=>{
