@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navigation } from "../components/navigation";
 import ReactQueryProvider from "@/service/ReactQueryProvider";
+import { Analytics } from "@vercel/analytics/react";
 
 export const fontSans = FontSans({
   subsets: ["latin"],
@@ -39,6 +40,7 @@ export default function RootLayout({
             <Navigation />
             {children}
             {/* <FooterSection/> */}
+            <Analytics />
           </ThemeProvider>
         </ReactQueryProvider>
       </body>
