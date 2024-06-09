@@ -20,7 +20,7 @@ export const Itinerary = ({ data, outputFromApi }: IProps) => {
         <h1 className="font-bold text-neutral-200 text-4xl text-center">
           {requiredData?.title}
         </h1>
-        <div className="pt-5 md:pt-15 lg:pt-20 dark:bg-black bg-white" style={{ width: "100%" }}>
+        <div className="pt-5 md:pt-16 w-[100%] dark:bg-black bg-white">
           <HoverEffect
             items={requiredData?.itineraries}
             outputFromApi={outputFromApi}
