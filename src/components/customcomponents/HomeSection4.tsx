@@ -1,6 +1,6 @@
 export default function HomeSection4() {
   return (
-    <div className="w-full h-auto md:h-[calc(100vh-5rem)] dark:bg-black bg-white pb-8 md:pb-0">
+    <div className="w-full h-auto dark:bg-black bg-white pb-8 md:py-10 md:mt-14">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h3 className="px-6 text-center text-3xl font-bold md:text-4xl lg:px-12 xl:text-5xl">
@@ -11,7 +11,7 @@ export default function HomeSection4() {
             their travel experiences!
           </p>
         </div>
-        <div className="mx-auto mt-10 grid h-full max-w-6xl grid-cols-1 flex-wrap items-start gap-5 md:mt-20 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+        <div className="mx-auto mt-10 grid h-full max-w-6xl grid-cols-1 flex-wrap items-start gap-5 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
           <div className="w-full h-full flex-1 rounded-xl border border-solid border-gray-200 p-6 last:md:col-span-2 last:lg:col-span-1">
             <p className="mt-2 text-base text-gray-500 md:text-lg">
               Using Hadana was a game-changer for my Thailand trip. Their AI
