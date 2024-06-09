@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function HomeSection2() {
   return (
-    <div className="w-full h-auto md:h-[calc(100vh-5rem)] py-10 dark:bg-black bg-white">
+    <div className="w-full h-auto pt-8 dark:bg-black bg-white">
       <div className="container mx-auto max-w-5xl lg:px-5">
         <h2 className="px-6 text-center text-3xl font-bold md:text-4xl lg:px-12 xl:text-5xl text-neutral-200 ">
           Your <span className="text-indigo-300">AI Guide</span> to Perfect
