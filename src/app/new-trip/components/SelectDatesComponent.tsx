@@ -52,7 +52,7 @@ export const SelectDatesComponent = ({ form }: IFormProps) => {
                       format(field.value.from, "LLL dd, yy")
                     )
                   ) : (
-                    <span>Pick a date</span>
+                    <span>Pick your start and end dates</span>
                   )}
                 </Button>
               </PopoverTrigger>
