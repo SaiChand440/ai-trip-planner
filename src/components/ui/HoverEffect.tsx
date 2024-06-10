@@ -57,7 +57,7 @@ export const HoverEffect = ({
                 <div className="flex flex-row" style={{ justifyContent: 'space-between' }}>
                 
                   <CardDescription>{item.date}</CardDescription>
-                  <CardDescription>Budget fot the day: ${item.budget}</CardDescription>
+                  <CardDescription>Budget for the day: ${item.budget}</CardDescription>
                 </div>
                 <CardTitle>{item.title}</CardTitle>
                 <CardDescription>{item.text}</CardDescription>
