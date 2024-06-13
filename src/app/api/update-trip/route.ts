@@ -13,12 +13,12 @@ interface IRequest {
   };
   usertype: "solo" | "couple" | "friends" | "family";
   budget:
-    | "<500"
-    | "500-1000"
-    | "1000-2000"
-    | "2000-5000"
-    | "5000-10000"
-    | ">10000";
+  | "<500"
+  | "500-1000"
+  | "1000-2000"
+  | "2000-5000"
+  | "5000-10000"
+  | ">10000";
 }
 
 const connectionString = process.env.DATABASE_URL;
@@ -46,7 +46,7 @@ export async function PUT(request: Request) {
   output.welcome.image = (welcomePhoto as any).photos[0].src.original;
 
   await Promise.all(
-    output?.itineraries.map(async (itinerary: any, index: number) => {
+    output?.itineraries?.map(async (itinerary: any, index: number) => {
       if (itinerary?.places?.length === 0) {
         return;
       }
