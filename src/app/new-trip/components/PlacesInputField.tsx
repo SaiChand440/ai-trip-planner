@@ -23,35 +23,35 @@ import usePlacesAutoComplete from "use-places-autocomplete";
 export interface IFormProps {
   form: UseFormReturn<
     {
-     destination: string;
+      destination: string;
       date: {
         from: Date;
         to: Date;
       };
       usertype: "solo" | "couple" | "friends" | "family";
       budget:
-        | "<500"
-        | "500-1000"
-        | "1000-2000"
-        | "2000-5000"
-        | "5000-10000"
-        | ">10000";
+      | "<500"
+      | "500-1000"
+      | "1000-2000"
+      | "2000-5000"
+      | "5000-10000"
+      | ">10000";
     },
     any,
     {
-     destination: string;
+      destination: string;
       date: {
         from: Date;
         to: Date;
       };
       usertype: "solo" | "couple" | "friends" | "family";
       budget:
-        | "<500"
-        | "500-1000"
-        | "1000-2000"
-        | "2000-5000"
-        | "5000-10000"
-        | ">10000";
+      | "<500"
+      | "500-1000"
+      | "1000-2000"
+      | "2000-5000"
+      | "5000-10000"
+      | ">10000";
     }
   >;
   className?: string;
@@ -64,7 +64,13 @@ export const PlacesInputField = ({ form }: IFormProps) => {
     setValue,
     suggestions: { data, status },
     clearSuggestions,
-  } = usePlacesAutoComplete();
+  } = usePlacesAutoComplete({
+    requestOptions: {
+      types: ["administrative_area_level_3", "country", "administrative_area_level_2", "administrative_area_level_1"],
+      // types: ["administrative_area_level_3", "country", "locality", "administrative_area_level_2", "administrative_area_level_1"],
+    }
+  })
+
 
   const [open, setOpen] = useState(false);
 
