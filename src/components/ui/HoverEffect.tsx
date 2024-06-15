@@ -55,7 +55,7 @@ export const HoverEffect = ({
               }
               <div className="flex flex-col pl-6 pr-6 ">
                 <div className="flex flex-row" style={{ justifyContent: 'space-between' }}>
-                
+
                   <CardDescription>{item.date}</CardDescription>
                   <CardDescription>Budget for the day: ${item.budget}</CardDescription>
                 </div>
@@ -80,11 +80,11 @@ export const Card = ({
   return (
     <div
       className={cn(
-        "rounded-lg md:rounded-2xl h-full w-full p-2 md:p-4 overflow-hidden bg-black border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-5 ",
+        "rounded-lg md:rounded-2xl h-full w-full p-2 md:p-4 overflow-hidden bg-black border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-20 ",
         className,
       )}
     >
-      <div className="relative z-5">
+      <div className="relative z-50">
         <div className="p-2 md:p-4">{children}</div>
       </div>
     </div>
