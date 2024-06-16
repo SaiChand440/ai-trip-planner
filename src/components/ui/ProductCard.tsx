@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 
 import Image from "next/image";
 import { BackgroundGradient } from "./BackgroundGardient";
@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 //@ts-ignore
 export function ProductCard({ data }) {
     const route = useRouter();
+    const [isHovered, setIsHovered] = useState(false)
     if (!data.trip_data) {
         return null;
     }
@@ -14,7 +15,10 @@ export function ProductCard({ data }) {
         <BackgroundGradient className="rounded-[22px] bg-white dark:bg-zinc-900">
             <div style={{ height: 378, padding: 5, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} onClick={() => {
                 route.push(`/itinerary/${encodeURIComponent(data.trip_id)}`);
-            }}>
+
+            }}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}>
 
                 <Image
                     src={data.trip_data.welcome.image}
@@ -22,6 +26,7 @@ export function ProductCard({ data }) {
                     height={200}
                     width={300}
                     className="rounded-[24px] p-2 object-cover w-full h-[60%]"
+                    style={{ padding: isHovered ? 1 : 5 }}
                 />
                 <p className="text-base sm:text-xl text-black mt-4 mb-2 dark:text-neutral-200" style={{
                     overflow: 'hidden',
