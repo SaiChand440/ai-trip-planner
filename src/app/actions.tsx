@@ -3,7 +3,6 @@
 import { streamObject } from "ai";
 import { createStreamableValue } from "ai/rsc";
 import outputSchema from "@/tools/outputSchema";
-import { google } from "@ai-sdk/google";
 import { openai } from "@ai-sdk/openai";
 import { z } from "zod";
 import { formSchema } from "@/components/customcomponents/TripPlanForm";

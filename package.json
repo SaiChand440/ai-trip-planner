@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ai-sdk/anthropic": "^0.0.23",
     "@ai-sdk/google": "^0.0.14",
     "@ai-sdk/openai": "^0.0.33",
     "@hookform/resolvers": "^3.3.4",
@@ -37,6 +38,7 @@
     "lodash.debounce": "^4.0.8",
     "lucide-react": "^0.338.0",
     "mini-svg-data-uri": "^1.4.4",
+    "moment": "^2.30.1",
     "next": "14.1.0",
     "next-themes": "^0.2.1",
     "openai": "^4.29.0",

@@ -9,7 +9,7 @@ const outputSchema = z.object({
     }).required(),
     itineraries: z.array(
       z.object({
-        title: z.string(),
+        title: z.string().min(20),
         date: z.date(),
         budget: z.number(),
         text: z.string().min(500),
