@@ -21,7 +21,7 @@ export default function Page() {
     return (
       <div className="w-full dark:bg-black bg-white  dark:bg-dot-white/[0.4] bg-dot-black/[0.4] flex flex-row flex-wrap gap-12 justify-center py-6">
         {/* @ts-ignore */}
-        <h2>Loading...</h2>
+        <div className='loader'></div>
       </div>
     );
   }

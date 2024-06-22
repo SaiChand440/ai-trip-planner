@@ -16,7 +16,7 @@ export default function Page() {
       <>
         <div className="h-[calc(100vh-5rem)] w-full dark:bg-black bg-white flex items-center justify-center mt-20">
             <h3 className="text-center md:text-4xl text-[24px] opacity-90 z-10 font-bold leading-snug">
-              Loading...
+            <div className='loader'></div>
             </h3>
         </div>
       </>

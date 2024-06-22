@@ -20,7 +20,7 @@ export default function Page() {
   if (isLoading) {
     return (
       <div className="w-full dark:bg-black bg-white h-screen flex flex-row flex-wrap gap-12 justify-center py-24">
-        <h2>Loading...</h2>
+        <div className='loader'></div>
       </div>
     );
   }

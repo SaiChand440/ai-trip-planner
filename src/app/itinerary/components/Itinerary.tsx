@@ -10,7 +10,7 @@ interface IProps {
 
 export const Itinerary = ({ data, outputFromApi }: IProps) => {
   if (!data) {
-    return <div>Loading...</div>;
+    return <div className="loader"></div>;
   }
 
   const requiredData = typeof data === "string" ? JSON.parse(data) : data;
