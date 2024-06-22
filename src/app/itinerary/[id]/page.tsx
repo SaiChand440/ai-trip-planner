@@ -81,18 +81,22 @@ export default function Page({ params }: { params: { id: string } }) {
   return (
     <>
       <div className="w-full h-auto dark:bg-black bg-white flex items-center justify-center pt-24">
-        {/* <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div> */}
-        <div className="flex justify-start items-center w-full mt-3 flex-col dark:bg-black bg-white">
-          <Itinerary
-            data={data?.trip_data ?? responseData?.data ?? itineraryData}
-            outputFromApi={
-              data?.trip_data
-                ? true
-                : responseData?.outputFromApi
-                ? true
-                : false
-            }
-          />
+        <div className="w-[60%]">
+          <div className="flex justify-start items-center w-full mt-3 flex-col dark:bg-black bg-white">
+            <Itinerary
+              data={data?.trip_data ?? responseData?.data ?? itineraryData}
+              outputFromApi={
+                data?.trip_data
+                  ? true
+                  : responseData?.outputFromApi
+                  ? true
+                  : false
+              }
+            />
+          </div>
+        </div>
+        <div className="w-[40%] bg-slate-400 h-screen flex justify-center items-center">
+              <h1>Map goes here</h1>
         </div>
       </div>
     </>
