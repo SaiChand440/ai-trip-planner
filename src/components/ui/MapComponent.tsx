@@ -33,7 +33,7 @@ export default function MapsComponent({ }: Props) {
         setMap(null)
     }, [])
     const containerStyle = {
-        width: '100%',
+        width: '90%',
         height: '100%',
     };
 

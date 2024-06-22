@@ -80,9 +80,12 @@ export default function Page({ params }: { params: { id: string } }) {
   }, [data]);
 
   return (
-    <>
-      <div className="w-full h-auto dark:bg-black bg-white flex items-center justify-center pt-24">
-        <div className="w-[65%]" >
+    !data ?
+      (<div className="w-full h-auto dark:bg-black bg-white flex items-center justify-center pt-24">
+        <div className="loader"></div>
+      </div>) :
+      <>
+        <div className="w-[60%] h-auto dark:bg-black bg-white flex items-center justify-center pt-24">
           <div className="flex justify-start items-center w-full mt-3 flex-col dark:bg-black bg-white">
             <Itinerary
               data={data?.trip_data ?? responseData?.data ?? itineraryData}
@@ -95,14 +98,13 @@ export default function Page({ params }: { params: { id: string } }) {
               }
             />
           </div>
-        </div>
-        <div className="w-[35%]  h-screen flex"
-          style={{
-            display: 'flex', flex: 1,
-          }} >
-          <MapsComponent />
-        </div>
-      </div >
-    </>
+          <div className="w-[40%]  h-screen flex"
+            style={{
+              display: 'flex', flex: 1,
+            }} >
+            <MapsComponent />
+          </div>
+        </div >
+      </>
   );
 }
