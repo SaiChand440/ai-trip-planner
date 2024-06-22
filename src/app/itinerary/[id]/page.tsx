@@ -7,6 +7,7 @@ import { generate } from "@/app/actions";
 import { z } from "zod";
 import { Itinerary } from "../components/Itinerary";
 import { itineraryResponseSchema } from "@/components/customcomponents/TripPlanForm";
+import MapsComponent from "@/components/ui/MapComponent";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -81,7 +82,7 @@ export default function Page({ params }: { params: { id: string } }) {
   return (
     <>
       <div className="w-full h-auto dark:bg-black bg-white flex items-center justify-center pt-24">
-        <div className="w-[60%]">
+        <div className="w-[65%]" >
           <div className="flex justify-start items-center w-full mt-3 flex-col dark:bg-black bg-white">
             <Itinerary
               data={data?.trip_data ?? responseData?.data ?? itineraryData}
@@ -89,16 +90,19 @@ export default function Page({ params }: { params: { id: string } }) {
                 data?.trip_data
                   ? true
                   : responseData?.outputFromApi
-                  ? true
-                  : false
+                    ? true
+                    : false
               }
             />
           </div>
         </div>
-        <div className="w-[40%] bg-slate-400 h-screen flex justify-center items-center">
-              <h1>Map goes here</h1>
+        <div className="w-[35%]  h-screen flex"
+          style={{
+            display: 'flex', flex: 1,
+          }} >
+          <MapsComponent />
         </div>
-      </div>
+      </div >
     </>
   );
 }
