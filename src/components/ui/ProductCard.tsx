@@ -27,6 +27,7 @@ export function ProductCard({ data }) {
                     width={300}
                     className="rounded-[24px] p-2 object-cover w-full h-[60%]"
                     style={{ padding: isHovered ? 1 : 5 }}
+                    unoptimized
                 />
                 <p className="text-base sm:text-xl text-black mt-4 mb-2 dark:text-neutral-200" style={{
                     overflow: 'hidden',
@@ -48,7 +49,7 @@ export function ProductCard({ data }) {
                 <div style={{ marginTop: 1 }}>
 
                     <span className="bg-zinc-700 rounded-[22px] text-[0.6rem] px-2 py-1 text-white" >
-                        {data.trip_data.itineraries.length} days itinerary
+                        {data?.trip_data?.itineraries?.length} days itinerary
                     </span>
                 </div>
             </div>

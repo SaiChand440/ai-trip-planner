@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import placeholder from '../../../public/images/stock/placeholder.png'
+import moment from 'moment';
+
 export const HoverEffect = ({
   items,
   className,
@@ -23,49 +25,70 @@ export const HoverEffect = ({
   let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   return (
     <div className="w-full md:w-4/5 justify-center md:ml-[10%]">
-      {items?.map((item, idx) => (
-        <div
-          key={idx}
-          className="relative group block p-2 h-full"
-          onMouseEnter={() => setHoveredIndex(idx)}
-          onMouseLeave={() => setHoveredIndex(null)}
-        >
-          <AnimatePresence>
-            {hoveredIndex === idx && (
-              <motion.span
-                className="absolute inset-0 h-full bg-neutral-200 dark:bg-slate-800/[0.8] block  rounded-3xl"
-                layoutId="hoverBackground"
-                initial={{ opacity: 0 }}
-                animate={{
-                  opacity: 1,
-                  transition: { duration: 0.15 },
-                }}
-                exit={{
-                  opacity: 0,
-                  transition: { duration: 0.15, delay: 0.2 },
-                }}
-              />
-            )}
-          </AnimatePresence>
-          <Card>
-            <div className="flex flex-col md:flex-row items-center justify-center">
-              {outputFromApi ? (
-                <Image alt="image" src={item.image} height={250} width={250} />
-              ) : <Image alt="" src={placeholder} height={250} width={250} />
-              }
-              <div className="flex flex-col pl-6 pr-6 ">
-                <div className="flex flex-row" style={{ justifyContent: 'space-between' }}>
-
-                  <CardDescription>{item.date}</CardDescription>
-                  <CardDescription>Budget for the day: ${item.budget}</CardDescription>
+      {items?.map((item, idx) => {
+        return (
+          <div
+            key={idx}
+            className="relative group block p-2 h-full"
+            onMouseEnter={() => setHoveredIndex(idx)}
+            onMouseLeave={() => setHoveredIndex(null)}
+          >
+            <AnimatePresence>
+              {hoveredIndex === idx && (
+                <motion.span
+                  className="absolute inset-0 h-full bg-neutral-200 dark:bg-slate-800/[0.8] block  rounded-3xl"
+                  layoutId="hoverBackground"
+                  initial={{ opacity: 0 }}
+                  animate={{
+                    opacity: 1,
+                    transition: { duration: 0.15 },
+                  }}
+                  exit={{
+                    opacity: 0,
+                    transition: { duration: 0.15, delay: 0.2 },
+                  }}
+                />
+              )}
+            </AnimatePresence>
+            <Card>
+              <div className="flex flex-col md:flex-row items-center justify-center">
+                {outputFromApi ? (
+                  <Image
+                    alt="image"
+                    src={item.image}
+                    height={250}
+                    width={250}
+                    unoptimized
+                  />
+                ) : (
+                  <Image
+                    alt=""
+                    src={placeholder}
+                    height={250}
+                    width={250}
+                    unoptimized
+                  />
+                )}
+                <div className="flex flex-col pl-6 pr-6 ">
+                  <div
+                    className="flex flex-row"
+                    style={{ justifyContent: "space-between" }}
+                  >
+                    <CardDescription>
+                      {moment(item.date).format(`MMMM Do YYYY`)}
+                    </CardDescription>
+                    <CardDescription>
+                      Budget for the day: ${item.budget}
+                    </CardDescription>
+                  </div>
+                  <CardTitle>{item.title}</CardTitle>
+                  <CardDescription>{item.text}</CardDescription>
                 </div>
-                <CardTitle>{item.title}</CardTitle>
-                <CardDescription>{item.text}</CardDescription>
               </div>
-            </div>
-          </Card>
-        </div>
-      ))}
+            </Card>
+          </div>
+        );
+      })}
     </div>
   );
 };
