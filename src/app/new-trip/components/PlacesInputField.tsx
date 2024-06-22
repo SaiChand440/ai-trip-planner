@@ -66,7 +66,7 @@ export const PlacesInputField = ({ form }: IFormProps) => {
     clearSuggestions,
   } = usePlacesAutoComplete({
     requestOptions: {
-      types: ["administrative_area_level_3", "country", "administrative_area_level_2", "administrative_area_level_1"],
+      types: ["country", "locality", "administrative_area_level_1"],
       // types: ["administrative_area_level_3", "country", "locality", "administrative_area_level_2", "administrative_area_level_1"],
     }
   })
