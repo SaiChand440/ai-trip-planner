@@ -1,4 +1,5 @@
 import { HoverEffect } from "@/components/ui/HoverEffect";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
@@ -20,6 +21,10 @@ export const Itinerary = ({ data, outputFromApi }: IProps) => {
         <h1 className="font-bold text-neutral-200 text-4xl text-center">
           {requiredData?.title}
         </h1>
+        <div>
+          <Button>Share</Button>
+          <Button>Save as PDF</Button>
+        </div>
         <div className="pt-5 md:pt-16 w-[100%] dark:bg-black bg-white">
           <HoverEffect
             items={requiredData?.itineraries}
