@@ -1,5 +1,6 @@
 "use client";
 import FooterSection from "@/components/customcomponents/FooterSection";
+import { Navigation } from "@/components/navigation";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
@@ -19,14 +20,18 @@ export default function Page() {
 
   if (isLoading) {
     return (
-      <div className="container w-full dark:bg-black bg-white flex flex-row flex-wrap gap-12 justify-center py-24">
-        <div className='loader'></div>
-      </div>
+      <>
+        <Navigation />
+        <div className="container w-full dark:bg-black bg-white flex flex-row flex-wrap gap-12 justify-center py-24">
+          <div className="loader"></div>
+        </div>
+      </>
     );
   }
 
   return (
     <>
+      <Navigation />
       <div className="container w-full dark:bg-black bg-white flex flex-row flex-wrap gap-12 justify-center py-24">
         {/* @ts-ignore */}
         {data?.data?.map((trip, index) => (

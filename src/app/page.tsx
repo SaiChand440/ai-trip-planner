@@ -7,22 +7,26 @@ import paris from "../../public/images/hero_section/paris.jpg";
 import HomeSection3 from "@/components/customcomponents/HomeSection3";
 import FooterSection from "@/components/customcomponents/FooterSection";
 import HomeSection4 from "@/components/customcomponents/HomeSection4";
+import { Navigation } from "@/components/navigation";
 
 export default function Home() {
   return (
-    <div className="h-auto">
-      <div className="w-full dark:bg-black bg-white  dark:bg-dot-white/[0.4] bg-dot-black/[0.4] mt-20">
-        <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] z-2"></div>
-        <div className="container relative flex flex-col md:flex-row justify-evenly md:justify-center items-center gap-6 md:gap-0 w-full pt-2 md:pt-5 h-[calc(100vh-5rem)] z-10">
-          <HeroText />
-          <CardStack items={CARDS} />
+    <>
+      <Navigation />
+      <div className="h-auto">
+        <div className="w-full dark:bg-black bg-white  dark:bg-dot-white/[0.4] bg-dot-black/[0.4] mt-20">
+          <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] z-2"></div>
+          <div className="container relative flex flex-col md:flex-row justify-evenly md:justify-center items-center gap-6 md:gap-0 w-full pt-2 md:pt-5 h-[calc(100vh-5rem)] z-10">
+            <HeroText />
+            <CardStack items={CARDS} />
+          </div>
         </div>
+        <HomeSection2 />
+        <HomeSection3 />
+        <HomeSection4 />
+        <FooterSection />
       </div>
-      <HomeSection2 />
-      <HomeSection3/>
-      <HomeSection4/>
-      <FooterSection/>
-    </div>
+    </>
   );
 }
 
