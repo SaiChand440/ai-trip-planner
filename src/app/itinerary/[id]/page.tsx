@@ -86,7 +86,7 @@ export default function Page({ params }: { params: { id: string } }) {
       </div>) :
       <>
         <div className="w-[60%] h-auto dark:bg-black bg-white flex items-center justify-center ">
-          <div className="flex justify-start items-center w-full mt-3 flex-col dark:bg-black bg-white">
+          <div className="flex justify-start items-center w-full flex-col dark:bg-black bg-white">
             <Itinerary
               data={data?.trip_data ?? responseData?.data ?? itineraryData}
               outputFromApi={

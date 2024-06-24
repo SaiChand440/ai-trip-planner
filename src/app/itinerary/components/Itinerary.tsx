@@ -17,18 +17,26 @@ export const Itinerary = ({ data, outputFromApi }: IProps) => {
   return (
     <div className="h-max w-full">
       <div className="h-screen">
-        <h1 className="font-bold text-neutral-200 text-4xl text-center">
-          {requiredData?.title}
-        </h1>
+        <div
+          className="font-bold text-neutral-200 text-4xl text-center bg-cover bg-center bg-no-repeat dark:bg-black bg-white dark:text-white"
+          style={{
+            backgroundImage: `url(${requiredData?.welcome?.image})`,
+          }}
+        >
+          <div
+            className="h-[100%] w-[100%] py-10 md:py-32 bg-gradient-to-b from-[rgba(0,0,0,0.5)] via-[rgba(0,0,0,0)] via-30% to-[rgba(0,0,0,0.7)] transition-colors"
+            style={{
+              backgroundColor: "rgba(0, 0, 0, 0.2)",
+            }}
+          >
+            {requiredData?.title}
+          </div>
+        </div>
         <div className="pt-5 md:pt-16 w-[100%] dark:bg-black bg-white">
           <HoverEffect
             items={requiredData?.itineraries}
             outputFromApi={outputFromApi}
           ></HoverEffect>
-          {/* <div style={{ flex: 1, display: 'flex', justifyContent: 'center', marginTop: 20 }}>
-
-            <p style={{ textDecorationLine: 'underline' }}>This itinerary is AI generated 🤖</p>
-          </div> */}
         </div>
       </div>
     </div>
