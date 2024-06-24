@@ -33,7 +33,7 @@ export default function MapsComponent({ }: Props) {
         setMap(null)
     }, [])
     const containerStyle = {
-        width: '90%',
+        width: '100%',
         height: '100%',
     };
 
@@ -61,10 +61,7 @@ export default function MapsComponent({ }: Props) {
     return (
         isLoaded &&
 
-        <div style={{
-            position: 'fixed', display: 'flex', width: '40%',
-            height: '90%',
-        }}>
+        <div className='fixed flex w-[40%] h-[100%]'>
             <GoogleMap
                 mapContainerStyle={containerStyle}
                 center={center}
