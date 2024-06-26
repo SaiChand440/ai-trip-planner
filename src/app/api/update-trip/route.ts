@@ -46,6 +46,18 @@ export async function PUT(request: Request) {
     orientation: "landscape",
   });
 
+  googleMapsClient.geocode({
+    params: {
+      address: destination,
+      key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
+    }
+  }).then((res) => {
+    output.destination =  {location : res.data.results[0].geometry.location,
+      place_id: res.data.results[0].place_id,
+      boundaries: res.data.results[0].geometry.bounds
+    }
+  })
+
   output.welcome.image = (welcomePhoto as any).photos[0].src.original;
 
   await Promise.all(
@@ -72,7 +84,8 @@ export async function PUT(request: Request) {
           .then((res) => {
             output.itineraries[index].places[placesIndex] ={ 
               place: place, 
-              location: res.data.results[0].geometry.location
+              location: res.data.results[0].geometry.location,
+              place_id: res.data.results[0].place_id
             }
           });
       });
