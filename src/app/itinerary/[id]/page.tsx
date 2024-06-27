@@ -65,16 +65,8 @@ export default function Page({ params }: { params: { id: string } }) {
           usertype: data?.usertype,
           budget: data?.budget,
         });
-        for await (const partialObject of readStreamableValue(object)) {
-          if (partialObject) {
-            setItineraryData(JSON.stringify(partialObject, null, 2));
-          }
-        }
-        for await (const statusFromStream of readStreamableValue(status)) {
-          if (statusFromStream) {
-            setStreamStatus(statusFromStream);
-          }
-        }
+        setItineraryData(JSON.stringify(object));
+        setStreamStatus(status);
       })();
     }
   }, [data]);
