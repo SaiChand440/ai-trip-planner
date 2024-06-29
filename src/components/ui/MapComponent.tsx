@@ -1,157 +1,229 @@
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-maps/api';
 import React, { useEffect, useState } from 'react'
-import {
-    setKey,
-    setDefaults,
-    setLanguage,
-    setRegion,
-    fromAddress,
-    fromLatLng,
-    fromPlaceId,
-    setLocationType,
-    geocode,
-    RequestType,
-} from "react-geocode";
-type Props = {}
+import { itineraryResponseSchema } from '../customcomponents/TripPlanForm';
+type Props = { data: {} }
 
-export default function MapsComponent({ }: Props) {
+export default function MapsComponent({ data }: Props) {
     const mapsKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ''
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: mapsKey
     })
     const [map, setMap] = React.useState(null)
-    const onLoad = React.useCallback(function callback(map) {
-        // This is just an example of getting and using the map instance!!! don't just blindly copy!
-        const bounds = new window.google.maps.LatLngBounds(center);
+
+    const onLoad = (map) => {
+        const bounds = new google.maps.LatLngBounds();
+        // markers.forEach(({ position }) => bounds.extend(center));
+        // markers.forEach(({ position }) => bounds.extend(center));
+
+        bounds.extend(center)
         map.fitBounds(bounds);
-        console.log(map)
+
+        // google.maps.event.addListener(map, 'bounds_changed', function (event) {
+        //     google.maps.event.removeListener(zoomChangeBoundsListener);
+        // });
+        var mapZoom = null;
+        google.maps.event.addListenerOnce(map, 'bounds_changed', function () {
+            if (mapZoom != map.getZoom()) {
+                mapZoom = (15);
+                map.setZoom(mapZoom);
+            }
+        });
         setMap(map)
-    }, [])
+        // if (!bounds.isEmpty()) {
+        //     var originalMaxZoom = map.maxZoom;
+        //     map.setOptions({ maxZoom: 18 });
+        //     map.setOptions({ maxZoom: originalMaxZoom });
+        // }
+    };
 
     const onUnmount = React.useCallback(function callback(map) {
         setMap(null)
     }, [])
-    const styles = [
-        { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
-        { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
-        { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
-        {
-          featureType: "administrative.locality",
-          elementType: "labels.text.fill",
-          stylers: [{ color: "#d59563" }],
-        },
-        {
-          featureType: "poi",
-          elementType: "labels.text.fill",
-          stylers: [{ color: "#d59563" }],
-        },
-        {
-          featureType: "poi.park",
-          elementType: "geometry",
-          stylers: [{ color: "#263c3f" }],
-        },
-        {
-          featureType: "poi.park",
-          elementType: "labels.text.fill",
-          stylers: [{ color: "#6b9a76" }],
-        },
-        {
-          featureType: "road",
-          elementType: "geometry",
-          stylers: [{ color: "#38414e" }],
-        },
-        {
-          featureType: "road",
-          elementType: "geometry.stroke",
-          stylers: [{ color: "#212a37" }],
-        },
-        {
-          featureType: "road",
-          elementType: "labels.text.fill",
-          stylers: [{ color: "#9ca5b3" }],
-        },
-        {
-          featureType: "road.highway",
-          elementType: "geometry",
-          stylers: [{ color: "#746855" }],
-        },
-        {
-          featureType: "road.highway",
-          elementType: "geometry.stroke",
-          stylers: [{ color: "#1f2835" }],
-        },
-        {
-          featureType: "road.highway",
-          elementType: "labels.text.fill",
-          stylers: [{ color: "#f3d19c" }],
-        },
-        {
-          featureType: "transit",
-          elementType: "geometry",
-          stylers: [{ color: "#2f3948" }],
-        },
-        {
-          featureType: "transit.station",
-          elementType: "labels.text.fill",
-          stylers: [{ color: "#d59563" }],
-        },
-        {
-          featureType: "water",
-          elementType: "geometry",
-          stylers: [{ color: "#17263c" }],
-        },
-        {
-          featureType: "water",
-          elementType: "labels.text.fill",
-          stylers: [{ color: "#515c6d" }],
-        },
-        {
-          featureType: "water",
-          elementType: "labels.text.stroke",
-          stylers: [{ color: "#17263c" }],
-        },
-      ];
       
     const containerStyle = {
-        width: '100%',
-        height: '100%',
+        width: '90%',
+        height: '110%',
     };
     const center = {
-        lat: -3.745,
-        lng: -38.523
+        lat: data?.trip_data?.destination?.location.lat,
+        lng: data?.trip_data?.destination?.location.lng
     }
-    // console.log("item", items)
-    // setDefaults({
-    //   key: mapsKey,
-    //   language: "en",
-    // });
+    const [locationdata, setLocationdata] = useState([])
+    useEffect(() => {
+        const tempData = []
+        data.trip_data?.itineraries.map((item) => tempData.push(item.places))
+        const filteredData = tempData.map((item, index) => {
+            return item.filter((item) => typeof item !== "string")
+        })
+        setLocationdata(filteredData)
+        console.log("trip data", filteredData)
+    }, [])
+
     const [latLong, setLatLng] = useState({ lat: 0, lng: 0 })
-    // setKey(mapsKey);
-    // setLanguage("en");
-    // useEffect(() => {
-    //     fromAddress("Eiffel Tower")
-    //         .then(({ results }) => {
-    //             const { lat, lng } = results[0].geometry.location;
-    //             setLatLng({ lat, lng })
-    //             console.log("ojoejfojejf", lat, lng, map);
-    //         })
-    //         .catch(console.error);
-    // }, [])
+
+    const defaultMapOptions = {
+        styles: obj
+    };
+    const [activeMarker, setActiveMarker] = useState(null);
+
+    const handleActiveMarker = (marker) => {
+        console.log("mar", marker)
+        if (marker === activeMarker) {
+            return;
+        }
+        setActiveMarker(marker);
+    };
     return (
         isLoaded &&
 
-        <div className='fixed flex w-[40%] h-[100%]'>
+        <div style={{
+            position: 'fixed', display: 'flex', width: '40%',
+            height: '90%',
+        }}>
             <GoogleMap
                 mapContainerStyle={containerStyle}
                 center={center}
-                zoom={5}
                 onLoad={onLoad}
                 onUnmount={onUnmount}
-                options={{styles}}
-            />
+                options={defaultMapOptions}
+
+            >
+                {/* {locationdata.map(({ id, name, position }) => (
+                    <Marker
+                        key={id}
+                        position={center}
+                        onClick={() => handleActiveMarker(id)}
+                    >
+                        {activeMarker === id ? (
+                            <InfoWindow onCloseClick={() => setActiveMarker(null)}>
+                                <div style={{ color: 'red' }}>{id}</div>
+                            </InfoWindow>
+                        ) : null}
+                    </Marker>
+                ))} */}
+                {locationdata.map((i, index) => i.map(({ location, place }) =>
+
+                    <Marker
+                        label={index + 1}
+                        title='dwd'
+                        key={location.lat}
+                        position={location}
+                        onClick={() => handleActiveMarker(location.lat)}
+                    >
+                        {activeMarker === location.lat ? (
+                            <InfoWindow onCloseClick={() => setActiveMarker(null)}>
+                                <div style={{ color: 'red' }}>{place}</div>
+                            </InfoWindow>
+                        ) : null}
+                    </Marker>)
+                )}
+            </GoogleMap>
         </div>
 
 
     )
 }
+
+// const styles = [
+   
+//   ];
+
+const obj = [
+    {
+        "featureType": "all",
+        "elementType": "labels.text",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
+    { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
+    { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
+    {
+      featureType: "administrative.locality",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#d59563" }],
+    },
+    {
+      featureType: "poi",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#d59563" }],
+    },
+    {
+      featureType: "poi.park",
+      elementType: "geometry",
+      stylers: [{ color: "#263c3f" }],
+    },
+    {
+      featureType: "poi.park",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#6b9a76" }],
+    },
+    {
+      featureType: "road",
+      elementType: "geometry",
+      stylers: [{ color: "#38414e" }],
+    },
+    {
+      featureType: "road",
+      elementType: "geometry.stroke",
+      stylers: [{ color: "#212a37" }],
+    },
+    {
+      featureType: "road",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#9ca5b3" }],
+    },
+    {
+      featureType: "road.highway",
+      elementType: "geometry",
+      stylers: [{ color: "#746855" }],
+    },
+    {
+      featureType: "road.highway",
+      elementType: "geometry.stroke",
+      stylers: [{ color: "#1f2835" }],
+    },
+    {
+      featureType: "road.highway",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#f3d19c" }],
+    },
+    {
+      featureType: "transit",
+      elementType: "geometry",
+      stylers: [{ color: "#2f3948" }],
+    },
+    {
+      featureType: "transit.station",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#d59563" }],
+    },
+    {
+      featureType: "water",
+      elementType: "geometry",
+      stylers: [{ color: "#17263c" }],
+    },
+    {
+      featureType: "water",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#515c6d" }],
+    },
+    {
+      featureType: "water",
+      elementType: "labels.text.stroke",
+      stylers: [{ color: "#17263c" }],
+    },
+]

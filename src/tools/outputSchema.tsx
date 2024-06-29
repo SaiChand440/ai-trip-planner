@@ -10,7 +10,7 @@ const outputSchema = z.object({
     itineraries: z.array(
       z.object({
         title: z.string(),
-        date: z.date(),
+        date: z.date().or(z.string()),
         budget: z.number(),
         text: z.string(),
         image: z.string(),
