@@ -18,6 +18,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
   const [itineraryData, setItineraryData] = useState<string>("");
   const [streamStatus, setStreamStatus] = useState<string>("");
+  // const [dates, setDates] = useState({})
 
   const initialized = useRef(false);
 
@@ -58,6 +59,7 @@ export default function Page({ params }: { params: { id: string } }) {
   useEffect(() => {
     if (data && !initialized.current && !data.trip_data) {
       initialized.current = true;
+      // setDates({ from: data?.date?.from, to: data?.date?.to });
       (async () => {
         const { object, status } = await generate({
           destination: data?.destination,
@@ -96,6 +98,7 @@ export default function Page({ params }: { params: { id: string } }) {
                     ? true
                     : false
               }
+              dates={{ from: data?.date?.from, to: data?.date?.to }}
             />
           </div>
           <div className="w-[40%]  h-screen flex flex-1" >

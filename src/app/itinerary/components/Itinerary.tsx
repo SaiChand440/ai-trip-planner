@@ -3,18 +3,25 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
+import {generatePdf} from '@/tools/pdfGenerator';
 
 interface IProps {
   data: any;
   outputFromApi: boolean;
+  dates: {from: Date, to: Date}
 }
 
-export const Itinerary = ({ data, outputFromApi }: IProps) => {
+export const Itinerary = ({ data, outputFromApi, dates }: IProps) => {
   if (!data) {
     return <div className="loader"></div>;
   }
 
   const requiredData = typeof data === "string" ? JSON.parse(data) : data;
+  const downloadPDF = ()=>{
+    if(requiredData && dates){
+      generatePdf(requiredData, dates)
+    }
+  }
   return (
     <div className="h-max w-full">
       <div className="h-screen">
@@ -35,7 +42,7 @@ export const Itinerary = ({ data, outputFromApi }: IProps) => {
         </div>
         <div>
           <Button>Share</Button>
-          <Button>Save as PDF</Button>
+          <Button onClick={downloadPDF}>Save as PDF</Button>
         </div>
         <div className="pt-5 md:pt-16 w-[100%] dark:bg-black bg-white">
           <HoverEffect
