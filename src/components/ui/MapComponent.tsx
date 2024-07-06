@@ -16,16 +16,14 @@ export default function MapsComponent({ data }: Props) {
         // markers.forEach(({ position }) => bounds.extend(center));
         // markers.forEach(({ position }) => bounds.extend(center));
 
-        bounds.extend(center)
+        bounds.extend(locationdata[0][0]?.location)
         map.fitBounds(bounds);
-
-        // google.maps.event.addListener(map, 'bounds_changed', function (event) {
-        //     google.maps.event.removeListener(zoomChangeBoundsListener);
-        // });
+       
         var mapZoom = null;
+        map.fitBounds(bounds)
         google.maps.event.addListenerOnce(map, 'bounds_changed', function () {
             if (mapZoom != map.getZoom()) {
-                mapZoom = (15);
+                mapZoom = (13);
                 map.setZoom(mapZoom);
             }
         });
@@ -46,21 +44,19 @@ export default function MapsComponent({ data }: Props) {
         height: '110%',
     };
     const center = {
-        lat: data?.trip_data?.destination?.location.lat,
-        lng: data?.trip_data?.destination?.location.lng
+        lat: data?.destination?.location.lat,
+        lng: data?.destination?.location.lng
     }
     const [locationdata, setLocationdata] = useState([])
     useEffect(() => {
         const tempData = []
-        data.trip_data?.itineraries.map((item) => tempData.push(item.places))
+        data?.itineraries.map((item) => tempData.push(item.places))
         const filteredData = tempData.map((item, index) => {
             return item.filter((item) => typeof item !== "string")
-        })
+        }).filter((i)=>i.length!==0)
         setLocationdata(filteredData)
-        console.log("trip data", filteredData)
     }, [])
 
-    const [latLong, setLatLng] = useState({ lat: 0, lng: 0 })
 
     const defaultMapOptions = {
         styles: obj
@@ -68,7 +64,6 @@ export default function MapsComponent({ data }: Props) {
     const [activeMarker, setActiveMarker] = useState(null);
 
     const handleActiveMarker = (marker) => {
-        console.log("mar", marker)
         if (marker === activeMarker) {
             return;
         }
@@ -106,7 +101,6 @@ export default function MapsComponent({ data }: Props) {
 
                     <Marker
                         label={index + 1}
-                        title='dwd'
                         key={location.lat}
                         position={location}
                         onClick={() => handleActiveMarker(location.lat)}
