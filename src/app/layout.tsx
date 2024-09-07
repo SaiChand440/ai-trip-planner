@@ -7,7 +7,7 @@ import { Navigation } from "../components/navigation";
 import ReactQueryProvider from "@/service/ReactQueryProvider";
 import { Analytics } from "@vercel/analytics/react";
 
-export const fontSans = FontSans({
+ const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
 });

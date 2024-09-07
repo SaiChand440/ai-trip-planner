@@ -11,15 +11,15 @@ export default function MapsComponent({ data }: Props) {
     })
     const [map, setMap] = React.useState(null)
 
-    const onLoad = (map) => {
+    const onLoad = (map: google.maps.Map) => {
         const bounds = new google.maps.LatLngBounds();
         // markers.forEach(({ position }) => bounds.extend(center));
         // markers.forEach(({ position }) => bounds.extend(center));
 
-        bounds.extend(locationdata[0][0]?.location)
+        bounds.extend((locationdata[0][0] as any)?.location)
         map.fitBounds(bounds);
        
-        var mapZoom = null;
+        var mapZoom: any = null;
         map.fitBounds(bounds)
         google.maps.event.addListenerOnce(map, 'bounds_changed', function () {
             if (mapZoom != map.getZoom()) {
@@ -27,7 +27,7 @@ export default function MapsComponent({ data }: Props) {
                 map.setZoom(mapZoom);
             }
         });
-        setMap(map)
+        setMap(map as any)
         // if (!bounds.isEmpty()) {
         //     var originalMaxZoom = map.maxZoom;
         //     map.setOptions({ maxZoom: 18 });
@@ -35,7 +35,7 @@ export default function MapsComponent({ data }: Props) {
         // }
     };
 
-    const onUnmount = React.useCallback(function callback(map) {
+    const onUnmount = React.useCallback(function callback(map: any) {
         setMap(null)
     }, [])
     const containerStyle = {
@@ -44,26 +44,35 @@ export default function MapsComponent({ data }: Props) {
     };
 
     const center = {
-        lat: data?.destination?.location.lat,
-        lng: data?.destination?.location.lng
+        lat: (data as any)?.destination?.location.lat,
+        lng: (data as any)?.destination?.location.lng
     }
-    const [locationdata, setLocationdata] = useState([])
+    const [locationdata, setLocationdata] = useState<any[]>([])
     useEffect(() => {
-        const tempData = []
-        data?.itineraries.map((item) => tempData.push(item.places))
+        const tempData: any[] =[];
+        (data as any)?.itineraries.map((item: any) => tempData.push(item.places))
         const filteredData = tempData.map((item, index) => {
-            return item.filter((item) => typeof item !== "string")
+            return item.filter((item: any) => typeof item !== "string")
         }).filter((i)=>i.length!==0)
         setLocationdata(filteredData)
     }, [])
 
+    // useEffect(() => {
+    //     const tempData: any[] = []
+    //     ;(data as any)?.itineraries?.forEach((item: any) => {
+    //         if (Array.isArray(item.places)) {
+    //             tempData.push(...item.places)
+    //         }
+    //     })
+    //     // ... rest of the useEffect code
+    // }, [])
 
     const defaultMapOptions = {
         styles: obj
     };
     const [activeMarker, setActiveMarker] = useState(null);
 
-    const handleActiveMarker = (marker) => {
+    const handleActiveMarker = (marker: any) => {
         if (marker === activeMarker) {
             return;
         }
@@ -97,10 +106,10 @@ export default function MapsComponent({ data }: Props) {
                         ) : null}
                     </Marker>
                 ))} */}
-                {locationdata.map((i, index) => i.map(({ location, place }) =>
+                {locationdata.map((i, index) => i.map(({ location, place }: any) =>
 
                     <Marker
-                        label={index + 1}
+                        label={index + 1 +""}
                         key={location.lat}
                         position={location}
                         onClick={() => handleActiveMarker(location.lat)}

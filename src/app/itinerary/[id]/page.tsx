@@ -79,8 +79,10 @@ export default function Page({ params }: { params: { id: string } }) {
         <div className="loader"></div>
       </div>) :
       <>
-      <div className={cn("w-[100%] h-auto dark:bg-black bg-white flex items-center justify-center")} style={{flex:1}}>
-      <div className="flex justify-start items-center w-full flex-col dark:bg-black bg-white" style={{flex:(data?.trip_data?.destination?.location.lat ?? responseData?.data?.destination?.location.lat) && (widthCondition)? 3/5:1}}>
+      <div className={cn("w-[100%] h-auto dark:bg-black bg-white flex items-center justify-center")} style={{flex:1}}>z
+      <div className="flex justify-start items-center w-full flex-col dark:bg-black bg-white" 
+      style={{
+        flex: (((data?.trip_data as any)?.destination?.location.lat ?? (responseData?.data as any)?.destination?.location?.lat) && widthCondition) ? 3/5 : 1}}>
       <Itinerary
       data={data?.trip_data ?? responseData?.data ?? itineraryData}
       outputFromApi={
@@ -93,7 +95,7 @@ export default function Page({ params }: { params: { id: string } }) {
       />
       </div>
       
-          { (data?.trip_data?.destination?.location.lat ?? responseData?.data?.destination?.location.lat)&& (widthCondition) &&
+          { ((data?.trip_data as any)?.location.lat ?? responseData?.data?.destination?.location.lat)&& (widthCondition) &&
             <div className="w-[40%]  h-screen flex flex-1"  style={{flex:2/5}}>
             <MapsComponent data={data.trip_data ?? responseData?.data}/>
             </div>}
