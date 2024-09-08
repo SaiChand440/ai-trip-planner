@@ -1,9 +1,10 @@
+import React from "react";
 import { HoverEffect } from "@/components/ui/HoverEffect";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Share2, ArrowDownToLine } from "lucide-react";
-import React from "react";
+import toast from 'react-hot-toast';
 import {generatePdf} from '@/tools/pdfGenerator';
 import { cn } from "@/lib/utils";
 
@@ -29,9 +30,10 @@ export const Itinerary = ({ data, outputFromApi, dates }: IProps) => {
     const link = window.location.href;
     try {
       await navigator.clipboard.writeText(link);
-      console.log("Link copied to clipboard");
+      toast.success("Link copied to clipboard");
     } catch (err) {
       console.error("Failed to copy link: ", err);
+      toast.error("Failed to copy link")
     }
   };
   return (

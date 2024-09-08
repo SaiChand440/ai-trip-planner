@@ -1,15 +1,16 @@
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
+import moment from 'moment';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs; // Set fonts for pdfmake
 
-const formatData = (itineraries)=>{
-    const formattedContent = [];
+const formatData = (itineraries: any[])=>{
+    const formattedContent: any[] = [];
     itineraries.forEach((itinerary, i)=>{
         formattedContent.push( {
             stack:[
                 {
-                    text: itineraries[i]?.title,
+                    text: itinerary.title,
                     fontSize: 20,
                     bold: true
                 },
@@ -19,17 +20,17 @@ const formatData = (itineraries)=>{
                       body: [
                         [
                           {
-                            text: itineraries[i]?.date,
-                           fontSize: 18,
+                           text: moment(itinerary.date).format(`MMMM Do YYYY`),
+                           fontSize: 16,
                            bold: true,
                            alignment: "left",
                           },
                           {
                             // width: "*",
                             alignment: "right",
-                            fontSize: 18,
+                            fontSize: 16,
                             bold: true,
-                            text: itineraries[i]?.budget  
+                            text: 'Budget: $' + itinerary.budget  
                           },
                         ],
                       ],
@@ -37,7 +38,7 @@ const formatData = (itineraries)=>{
                     layout: "noBorders",
                 },
                 {
-                    text: itineraries[i]?.text,
+                    text: itinerary.text,
                     fontSize: 14,
                 }
             ],
@@ -48,9 +49,9 @@ const formatData = (itineraries)=>{
     return formattedContent;
 }
 
-export function generatePdf(jsonData, dates) {
-  console.log("jsoin data", jsonData, __dirname);
+export function generatePdf(jsonData: { itineraries: any[]; title: any; }, dates: { from: Date; to: Date; }) {
   let stackContent = formatData(jsonData?.itineraries)
+  let headingsMargin: [number, number, number, number] = [ 0, 10, 0, 0 ]
 
   var docDefinition = {  
     content: [
@@ -87,12 +88,12 @@ export function generatePdf(jsonData, dates) {
     ],
     styles: {
         h1: {
-            margin: [0, 10, 0, 0],
+            margin: headingsMargin,
             fontSize: 24,
             bold: true
         },
         h2: {
-            margin: [0, 10, 0, 0],
+            margin: headingsMargin,
             fontSize: 10,
         }
     }
