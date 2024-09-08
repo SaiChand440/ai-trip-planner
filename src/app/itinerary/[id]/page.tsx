@@ -20,6 +20,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
   const [itineraryData, setItineraryData] = useState<string>("");
   const [streamStatus, setStreamStatus] = useState<string>("");
+  // const [dates, setDates] = useState({})
 
   const initialized = useRef(false);
   const screenSize = useScreenSize();
@@ -60,6 +61,7 @@ export default function Page({ params }: { params: { id: string } }) {
   useEffect(() => {
     if (data && !initialized.current && !data.trip_data) {
       initialized.current = true;
+      // setDates({ from: data?.date?.from, to: data?.date?.to });
       (async () => {
         const { object, status } = await generate({
           destination: data?.destination,
@@ -72,35 +74,54 @@ export default function Page({ params }: { params: { id: string } }) {
       })();
     }
   }, [data]);
-  const widthCondition=screenSize.width>=550
-  return (
-    !data ?
-      (<div className="w-full h-auto dark:bg-black bg-white flex items-center justify-center ">
-        <div className="loader"></div>
-      </div>) :
-      <>
-      <div className={cn("w-[100%] h-auto dark:bg-black bg-white flex items-center justify-center")} style={{flex:1}}>
-      <div className="flex justify-start items-center w-full flex-col dark:bg-black bg-white" 
-      style={{
-        flex: (((data?.trip_data as any)?.destination?.location.lat ?? (responseData?.data as any)?.destination?.location?.lat) && widthCondition) ? 3/5 : 1}}>
-      <Itinerary
-      data={data?.trip_data ?? responseData?.data ?? itineraryData}
-      outputFromApi={
-        data?.trip_data
-        ? true
-        : responseData?.outputFromApi
-        ? true
-        : false
-      }
-      />
+  const widthCondition = screenSize.width >= 550;
+  return !data ? (
+    <div className="w-full h-auto dark:bg-black bg-white flex items-center justify-center ">
+      <div className="loader"></div>
+    </div>
+  ) : (
+    <>
+      <div
+        className={cn(
+          "w-[100%] h-auto dark:bg-black bg-white flex items-center justify-center"
+        )}
+        style={{ flex: 1 }}
+      >
+        <div
+          className="flex justify-start items-center w-full flex-col dark:bg-black bg-white"
+          style={{
+            flex:
+              ((data?.trip_data as any)?.destination?.location.lat ??
+                (responseData?.data as any)?.destination?.location?.lat) &&
+              widthCondition
+                ? 3 / 5
+                : 1,
+          }}
+        >
+          <Itinerary
+            data={data?.trip_data ?? responseData?.data ?? itineraryData}
+            outputFromApi={
+              data?.trip_data
+                ? true
+                : responseData?.outputFromApi
+                ? true
+                : false
+            }
+            dates={{ from: data?.date?.from, to: data?.date?.to }}
+          />
+        </div>
+
+        {((data?.trip_data as any)?.location.lat ??
+          responseData?.data?.destination?.location.lat) &&
+          widthCondition && (
+            <div
+              className="w-[40%]  h-screen flex flex-1"
+              style={{ flex: 2 / 5 }}
+            >
+              <MapsComponent data={data.trip_data ?? responseData?.data} />
+            </div>
+          )}
       </div>
-      
-          { ((data?.trip_data as any)?.location.lat ?? responseData?.data?.destination?.location.lat)&& (widthCondition) &&
-            <div className="w-[40%]  h-screen flex flex-1"  style={{flex:2/5}}>
-            <MapsComponent data={data.trip_data ?? responseData?.data}/>
-            </div>}
-                  
-                  </div >
-                  </>
-                );
-              }
+    </>
+  );
+}
