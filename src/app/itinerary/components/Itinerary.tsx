@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 interface IProps {
   data: any;
   outputFromApi: boolean;
-  dates?: {from: Date, to: Date}
+  dates: {from: Date, to: Date}
 }
 
 export const Itinerary = ({ data, outputFromApi, dates }: IProps) => {

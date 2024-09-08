@@ -107,6 +107,7 @@ export default function Page({ params }: { params: { id: string } }) {
                 ? true
                 : false
             }
+            dates={{ from: data?.date?.from, to: data?.date?.to }}
           />
         </div>
 
