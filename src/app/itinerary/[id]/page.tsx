@@ -75,7 +75,6 @@ export default function Page({ params }: { params: { id: string } }) {
     }
   }, [data]);
   const widthCondition = screenSize.width >= 550;
-
   return !data ? (
     <div className="w-full h-auto dark:bg-black bg-white flex items-center justify-center ">
       <div className="loader"></div>
@@ -92,8 +91,8 @@ export default function Page({ params }: { params: { id: string } }) {
           className="flex justify-start items-center w-full flex-col dark:bg-black bg-white"
           style={{
             flex:
-              (data?.trip_data?.destination?.location.lat ??
-                responseData?.data?.destination?.location.lat) &&
+              ((data?.trip_data as any)?.destination?.location.lat ??
+                (responseData?.data as any)?.destination?.location?.lat) &&
               widthCondition
                 ? 3 / 5
                 : 1,
@@ -108,11 +107,10 @@ export default function Page({ params }: { params: { id: string } }) {
                 ? true
                 : false
             }
-            dates={{ from: data?.date?.from, to: data?.date?.to }}
           />
         </div>
 
-        {(data?.trip_data?.destination?.location.lat ??
+        {((data?.trip_data as any)?.location.lat ??
           responseData?.data?.destination?.location.lat) &&
           widthCondition && (
             <div
