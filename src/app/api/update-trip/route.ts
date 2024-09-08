@@ -4,6 +4,7 @@ import { createSupabaseServer } from "@/lib/supabase/server";
 import postgres from "postgres";
 import { drizzle } from "drizzle-orm/postgres-js";
 import { eq } from "drizzle-orm";
+import { Client } from "@googlemaps/google-maps-services-js";
 
 interface IRequest {
   destination: string;
@@ -34,6 +35,8 @@ export async function PUT(request: Request) {
   const { trip_id, itineraryData, destination } = await request.json();
 
   const client = createClient(process.env.PEXELS_API_KEY!);
+  const googleMapsClient = new Client({});
+  
 
   const output = JSON.parse(itineraryData);
 
@@ -42,6 +45,18 @@ export async function PUT(request: Request) {
     per_page: 1,
     orientation: "landscape",
   });
+
+  googleMapsClient.geocode({
+    params: {
+      address: destination,
+      key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
+    }
+  }).then((res) => {
+    output.destination =  {location : res.data.results[0].geometry.location,
+      place_id: res.data.results[0].place_id,
+      boundaries: res.data.results[0].geometry.bounds
+    }
+  })
 
   output.welcome.image = (welcomePhoto as any).photos[0].src.original;
 
@@ -58,6 +73,22 @@ export async function PUT(request: Request) {
       output.itineraries[index].image = (
         itineraryPhoto as any
       ).photos[0].src.original;
+      itinerary?.places?.forEach((place: string,placesIndex: number) => {
+        googleMapsClient
+          .geocode({
+            params: {
+              address: place as string,
+              key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
+            },
+          })
+          .then((res) => {
+            output.itineraries[index].places[placesIndex] ={ 
+              place: place, 
+              location: res.data.results[0].geometry.location,
+              place_id: res.data.results[0].place_id
+            }
+          });
+      });
     })
   );
 

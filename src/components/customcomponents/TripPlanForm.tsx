@@ -142,6 +142,7 @@ export const TripPlanForm = () => {
   const [loading, setLoading] = useState(false);
   return (
     <>
+    {loading ? <div className="loader"></div> :
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit, onError)}
@@ -180,7 +181,9 @@ export const TripPlanForm = () => {
             )}
           </div>
         </form>
+
       </Form>
+    }
       <Dialog open={openModal}>
         <DialogContent>
           <DialogHeader>

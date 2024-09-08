@@ -7,6 +7,9 @@ import { generate } from "@/app/actions";
 import { z } from "zod";
 import { Itinerary } from "../components/Itinerary";
 import { itineraryResponseSchema } from "@/components/customcomponents/TripPlanForm";
+import MapsComponent from "@/components/ui/MapComponent";
+import { cn } from "@/lib/utils";
+import useScreenSize from "./useScreenSize";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -17,9 +20,10 @@ export default function Page({ params }: { params: { id: string } }) {
 
   const [itineraryData, setItineraryData] = useState<string>("");
   const [streamStatus, setStreamStatus] = useState<string>("");
+  // const [dates, setDates] = useState({})
 
   const initialized = useRef(false);
-
+  const screenSize = useScreenSize();
   const { data } = useQuery({
     queryKey: ["itinerary", trip_id],
     queryFn: async () => {
@@ -57,6 +61,7 @@ export default function Page({ params }: { params: { id: string } }) {
   useEffect(() => {
     if (data && !initialized.current && !data.trip_data) {
       initialized.current = true;
+      // setDates({ from: data?.date?.from, to: data?.date?.to });
       (async () => {
         const { object, status } = await generate({
           destination: data?.destination,
@@ -64,25 +69,35 @@ export default function Page({ params }: { params: { id: string } }) {
           usertype: data?.usertype,
           budget: data?.budget,
         });
-        for await (const partialObject of readStreamableValue(object)) {
-          if (partialObject) {
-            setItineraryData(JSON.stringify(partialObject, null, 2));
-          }
-        }
-        for await (const statusFromStream of readStreamableValue(status)) {
-          if (statusFromStream) {
-            setStreamStatus(statusFromStream);
-          }
-        }
+        setItineraryData(JSON.stringify(object));
+        setStreamStatus(status);
       })();
     }
   }, [data]);
-
-  return (
+  const widthCondition = screenSize.width >= 550;
+  return !data ? (
+    <div className="w-full h-auto dark:bg-black bg-white flex items-center justify-center ">
+      <div className="loader"></div>
+    </div>
+  ) : (
     <>
-      <div className="w-full h-auto dark:bg-black bg-white flex items-center justify-center pt-24">
-        {/* <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div> */}
-        <div className="flex justify-start items-center w-full mt-3 flex-col dark:bg-black bg-white">
+      <div
+        className={cn(
+          "w-[100%] h-auto dark:bg-black bg-white flex items-center justify-center"
+        )}
+        style={{ flex: 1 }}
+      >
+        <div
+          className="flex justify-start items-center w-full flex-col dark:bg-black bg-white"
+          style={{
+            flex:
+              ((data?.trip_data as any)?.destination?.location.lat ??
+                (responseData?.data as any)?.destination?.location?.lat) &&
+              widthCondition
+                ? 3 / 5
+                : 1,
+          }}
+        >
           <Itinerary
             data={data?.trip_data ?? responseData?.data ?? itineraryData}
             outputFromApi={
@@ -92,8 +107,20 @@ export default function Page({ params }: { params: { id: string } }) {
                 ? true
                 : false
             }
+            dates={{ from: data?.date?.from, to: data?.date?.to }}
           />
         </div>
+
+        {((data?.trip_data as any)?.location.lat ??
+          responseData?.data?.destination?.location.lat) &&
+          widthCondition && (
+            <div
+              className="w-[40%]  h-screen flex flex-1"
+              style={{ flex: 2 / 5 }}
+            >
+              <MapsComponent data={data.trip_data ?? responseData?.data} />
+            </div>
+          )}
       </div>
     </>
   );

@@ -1,16 +1,12 @@
 import type { Metadata } from "next";
-import { Inter as FontSans } from "next/font/google"
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navigation } from "../components/navigation";
 import ReactQueryProvider from "@/service/ReactQueryProvider";
 import { Analytics } from "@vercel/analytics/react";
-
-export const fontSans = FontSans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
+import { Toaster } from 'react-hot-toast';
+import { fontSans } from "./font";
 
 export const metadata: Metadata = {
   title: "Hadana: Your AI travel planner",
@@ -37,7 +33,8 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Navigation />
+            <Toaster position="bottom-center"/>
+            {/* <Navigation /> */}
             {children}
             {/* <FooterSection/> */}
             <Analytics />
